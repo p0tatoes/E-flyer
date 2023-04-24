@@ -132,7 +132,7 @@
                   </div>
                   <div class="login_menu">
                      <ul>
-                        <li><a href="#">
+                        <li><a href="index.php?cart=true">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Cart</span></a>
                         </li>
@@ -199,7 +199,7 @@
    ?>
    <!-- PHP Forms end -->
 
-   <?php include 'body.php' ?>
+   <?php require 'body.php' ?>
 
    <!-- copyright section start -->
    <div class="copyright_section">
