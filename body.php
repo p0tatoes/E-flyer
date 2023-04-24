@@ -3,7 +3,8 @@ include 'head.php';
 
 if ($_COOKIE['type'] == 'admin'): ?>
     <p style="text-align: center;">temp dashboard</p>
-    <figure id="dashboard"><img src="./images/temp-dashboard.gif" alt="temporary dashboard"></figure>
+    <figure id="dashboard" style="display: flex; justify-content: center; align-items: center;"><img
+            src="./images/temp-dashboard.gif" alt="temporary dashboard"></figure>
 <?php else: ?>
     <!-- fashion section start -->
     <div class="fashion_section">
