@@ -13,7 +13,7 @@ if ($_REQUEST['name'] != "" && $_REQUEST['email'] != "" && $_REQUEST['password']
 
     if ($total_results == 0) {
         $all_query = "select * from user";
-        $all_result = mysql_query($query) or die(mysql_error());
+        $all_result = mysql_query($all_query) or die(mysql_error());
         $total_all = mysql_num_rows($all_result);
         if ($total_all == 0):
             $query = "insert into user(email, passwd, contact, name, address, usertype, user_date, user_ip) values('" . $_REQUEST['email'] . "', '" . $_REQUEST['password'] . "', '" . $_REQUEST['contact'] . "', '" . $_REQUEST['name'] . "' ,'" . $_REQUEST['address'] . "', 'admin', '" . date("Y-m-d h:i:s") . "', '" . $_SERVER['REMOTE_ADDR'] . "')";
