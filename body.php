@@ -23,35 +23,35 @@ if ($_COOKIE['type'] == 'admin'): ?>
                             <div class="fashion_section_2">
                                 <div class="row">
                                     <div class="col-lg-4 col-sm-4">
+                                        <!-- Product ID #1 : Man T-shirt -->
                                         <div class="box_main">
                                             <h4 class="shirt_text">Man T -shirt</h4>
                                             <p class="price_text">Price <span style="color: #262626;">$ 30</span></p>
                                             <div class="tshirt_img"><img src="images/tshirt-img.png"></div>
                                             <div class="btn_main">
-                                                <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
+                                                <div class="buy_bt"><a href="?prod_id=1">Buy Now</a></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-4">
+                                        <!-- Product ID #2 : Man Shirt -->
                                         <div class="box_main">
-                                            <h4 class="shirt_text">Man -shirt</h4>
+                                            <h4 class="shirt_text">Man Shirt</h4>
                                             <p class="price_text">Price <span style="color: #262626;">$ 30</span></p>
                                             <div class="tshirt_img"><img src="images/dress-shirt-img.png"></div>
                                             <div class="btn_main">
-                                                <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
+                                                <div class="buy_bt"><a href="?prod_id=2">Buy Now</a></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-4">
+                                        <!-- Product ID #3 : Woman Scarf -->
                                         <div class="box_main">
-                                            <h4 class="shirt_text">Woman Scart</h4>
+                                            <h4 class="shirt_text">Woman Scarf</h4>
                                             <p class="price_text">Price <span style="color: #262626;">$ 30</span></p>
                                             <div class="tshirt_img"><img src="images/women-clothes-img.png"></div>
                                             <div class="btn_main">
-                                                <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
+                                                <div class="buy_bt"><a href="?prod_id=3">Buy Now</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -71,7 +71,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="tshirt_img"><img src="images/tshirt-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -82,7 +81,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="tshirt_img"><img src="images/dress-shirt-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -93,7 +91,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="tshirt_img"><img src="images/women-clothes-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -113,7 +110,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="tshirt_img"><img src="images/tshirt-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -124,7 +120,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="tshirt_img"><img src="images/dress-shirt-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -135,7 +130,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="tshirt_img"><img src="images/women-clothes-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -169,7 +163,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="electronic_img"><img src="images/laptop-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -180,7 +173,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="electronic_img"><img src="images/mobile-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -191,7 +183,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="electronic_img"><img src="images/computer-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -211,7 +202,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="electronic_img"><img src="images/laptop-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -222,7 +212,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="electronic_img"><img src="images/mobile-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -233,7 +222,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="electronic_img"><img src="images/computer-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -253,7 +241,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="electronic_img"><img src="images/laptop-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -264,7 +251,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="electronic_img"><img src="images/mobile-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -275,7 +261,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="electronic_img"><img src="images/computer-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -309,7 +294,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="jewellery_img"><img src="images/jhumka-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -320,7 +304,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="jewellery_img"><img src="images/neklesh-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -331,7 +314,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="jewellery_img"><img src="images/kangan-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -351,7 +333,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="jewellery_img"><img src="images/jhumka-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -362,7 +343,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="jewellery_img"><img src="images/neklesh-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -373,7 +353,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="jewellery_img"><img src="images/kangan-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -393,7 +372,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="jewellery_img"><img src="images/jhumka-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -404,7 +382,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="jewellery_img"><img src="images/neklesh-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -415,7 +392,6 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                             <div class="jewellery_img"><img src="images/kangan-img.png"></div>
                                             <div class="btn_main">
                                                 <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                                <div class="seemore_bt"><a href="#">See More</a></div>
                                             </div>
                                         </div>
                                     </div>
