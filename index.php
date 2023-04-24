@@ -1,3 +1,5 @@
+<?php ob_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +62,7 @@
                         <ul>
                            <li>
                               Welcome,
-                              <?php echo $_COOKIE['ass'] . ' (' . $_COOKIE['type'] . ')' ?>
+                              <?php echo $_COOKIE['email'] . ' (' . $_COOKIE['type'] . ')' ?>
                            </li>
                            <li><a href="logout.php">Logout</a></li>
                         </ul>
@@ -191,15 +193,12 @@
    <!-- banner bg main end -->
 
    <!-- PHP Forms starts -->
-   // TODO: add implementation for register and login forms
    <?php
    include 'login.php';
    include 'register.php';
    ?>
    <!-- PHP Forms end -->
 
-   // TODO: implement dashboard (not final design) display if $_COOKIE['type'] == 'admin'
-   // TODO: implement store display of $_COOKIE['type'] == 'customer'
    <?php include 'body.php' ?>
 
    <!-- copyright section start -->
@@ -231,3 +230,5 @@
 </body>
 
 </html>
+
+<?php ob_end_flush() ?>

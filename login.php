@@ -15,9 +15,9 @@ if ($_REQUEST['logging_in'] == true) {
         echo '<meta http-equiv="refresh" content="0;url=index.php?action=register&#login_form">';
         echo '<script>alert("Account appears to not be registered. Sign up an account to login!")</script>';
     } else {
-        setcookie("email", $account['email'], time() + 86400);
-        setcookie("type", $account['user_type'], time() + 86400);
-        echo '<meta http-equiv="refresh" content="0;url=index.php">';
+        setcookie("email", $account['email'], time() + 86400, '/');
+        setcookie("type", $account['usertype'], time() + 86400, '/');
+        echo '<meta http-equiv="refresh" content="0; url=index.php?loggedin=true">';
     }
 }
 
