@@ -34,7 +34,7 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-4">
-                                        <!-- Product ID #2 : Man Shirt -->
+                                        <!-- Product ID #2 : Man Polo Shirt -->
                                         <div class="box_main">
                                             <h4 class="shirt_text">Man Shirt</h4>
                                             <p class="price_text">Price <span style="color: #262626;">$ 30</span></p>
@@ -45,7 +45,7 @@ if ($_COOKIE['type'] == 'admin'): ?>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-4">
-                                        <!-- Product ID #3 : Woman Scarf -->
+                                        <!-- Product ID #3 : Woman Dress -->
                                         <div class="box_main">
                                             <h4 class="shirt_text">Woman Scarf</h4>
                                             <p class="price_text">Price <span style="color: #262626;">$ 30</span></p>
