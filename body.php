@@ -1,5 +1,6 @@
 <?php
 include 'head.php';
+include 'cart.php';
 
 $user_type = $_COOKIE['type'] ?? '';
 
