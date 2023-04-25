@@ -6,21 +6,27 @@ Register Functionality
 Registers username, email, password, contact, address, ip, registration date, and user type into the database, if all input fields in the form are filled.
 If not, an alert popup will show up
 */
-if ($_REQUEST['name'] != "" && $_REQUEST['email'] != "" && $_REQUEST['password'] != "" && $_REQUEST['contact'] != "" && $_REQUEST['address'] != "") {
-    $query = "select * from user where email='" . $_REQUEST['email'] . "'";
-    $result = mysql_query($query) or die(mysql_error());
-    $total_results = mysql_num_rows($result);
+$action = $_REQUEST['action'] ?? '';
+$register_name = $_REQUEST['name'] ?? '';
+$register_email = $_REQUEST['email'] ?? '';
+$register_password = $_REQUEST['password'] ?? '';
+$register_contact = $_REQUEST['contact'] ?? '';
+$register_address = $_REQUEST['address'] ?? '';
+if ($register_name != "" && $register_email != "" && $register_password != "" && $register_contact != "" && $register_address != "") {
+    $register_query = "select * from user where email='" . $_REQUEST['email'] . "'";
+    $register_result = mysqli_query($shopee, $register_query) or die(mysqli_error($shopee));
+    $total_registered_accounts = mysqli_num_rows($register_result);
 
-    if ($total_results == 0) {
-        $all_query = "select * from user";
-        $all_result = mysql_query($all_query) or die(mysql_error());
-        $total_all = mysql_num_rows($all_result);
-        if ($total_all == 0):
-            $query = "insert into user(email, passwd, contact, name, address, usertype, user_date, user_ip) values('" . $_REQUEST['email'] . "', '" . $_REQUEST['password'] . "', '" . $_REQUEST['contact'] . "', '" . $_REQUEST['name'] . "' ,'" . $_REQUEST['address'] . "', 'admin', '" . date("Y-m-d h:i:s") . "', '" . $_SERVER['REMOTE_ADDR'] . "')";
-            $result = mysql_query($query) or die(mysql_error());
+    if ($total_registered_accounts == 0) {
+        $query_all = "select * from user";
+        $all_results = mysqli_query($shopee, $query_all) or die(mysqli_error($shopee));
+        $total_registered_accounts = mysqli_num_rows($all_results);
+        if ($total_registered_accounts == 0):
+            $register_query = "insert into user(email, passwd, contact, name, address, usertype, user_date, user_ip) values('" . $_REQUEST['email'] . "', '" . $_REQUEST['password'] . "', '" . $_REQUEST['contact'] . "', '" . $_REQUEST['name'] . "' ,'" . $_REQUEST['address'] . "', 'admin', '" . date("Y-m-d h:i:s") . "', '" . $_SERVER['REMOTE_ADDR'] . "')";
+            $update_query = mysqli_query($shopee, $register_query) or die(mysqli_error($shopee));
         else:
-            $query = "insert into user(email, passwd, contact, name, address, usertype, user_date, user_ip) values('" . $_REQUEST['email'] . "', '" . $_REQUEST['password'] . "', '" . $_REQUEST['contact'] . "', '" . $_REQUEST['name'] . "' ,'" . $_REQUEST['address'] . "', 'customer', '" . date("Y-m-d h:i:s") . "', '" . $_SERVER['REMOTE_ADDR'] . "')";
-            $result = mysql_query($query) or die(mysql_error());
+            $register_query = "insert into user(email, passwd, contact, name, address, usertype, user_date, user_ip) values('" . $_REQUEST['email'] . "', '" . $_REQUEST['password'] . "', '" . $_REQUEST['contact'] . "', '" . $_REQUEST['name'] . "' ,'" . $_REQUEST['address'] . "', 'customer', '" . date("Y-m-d h:i:s") . "', '" . $_SERVER['REMOTE_ADDR'] . "')";
+            $update_query = mysqli_query($shopee, $register_query) or die(mysqli_error($shopee));
         endif;
         echo '<meta http-equiv="refresh" content="0;url=index.php?action=login&#login_form">';
         echo '<script>alert("Account has been registered")</script>';
@@ -30,7 +36,7 @@ if ($_REQUEST['name'] != "" && $_REQUEST['email'] != "" && $_REQUEST['password']
     }
 }
 
-if ($_REQUEST['action'] == 'register') {
+if ($action == 'register') {
     print('<p id="register">Register</p>');
     print('<form action=index.php method=post>');
     print('Enter Name<input type=text name=name><br>');

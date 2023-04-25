@@ -1,13 +1,17 @@
 <?php
 include 'head.php';
 
-if ($_COOKIE['type'] == 'admin'): ?>
+$user_type = $_COOKIE['type'] ?? '';
+
+if ($user_type == 'admin'): ?>
     <p style="text-align: center;">temp dashboard</p>
     <figure id="dashboard" style="display: flex; justify-content: center; align-items: center;"><img
             src="./images/temp-dashboard.gif" alt="temporary dashboard"></figure>
 <?php else: ?>
     <!-- fashion section start -->
-    <?php if ($_REQUEST['cart'] == true) { ?>
+    <?php
+    $to_cart = $_REQUEST['cart'] ?? false;
+    if ($to_cart) { ?>
         <div style="text-align: center; padding: 150px 150px;">
             <h1>TODO: Make a cart page</h1>
             <p>with quantity listing functionality</p>
