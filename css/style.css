@@ -928,3 +928,15 @@ input.mail_bt::placeholder {
 /* 
     My Own Stuffs 
 */
+.container_cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.in_cart_product {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  margin-bottom: 50px;
+}

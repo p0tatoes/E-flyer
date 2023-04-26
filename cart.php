@@ -3,14 +3,17 @@ $store_products = [
     [
         "id" => 1,
         "name" => "man t-shirt",
+        "picture" => 'images/tshirt-img.png'
     ],
     [
         "id" => 2,
         "name" => "man polo shirt",
+        "picture" => 'images/dress-shirt-img.png'
     ],
     [
         "id" => 3,
         "name" => "woman dress",
+        "picture" => 'images/women-clothes-img.png'
     ]
 ];
 

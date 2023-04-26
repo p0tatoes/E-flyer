@@ -18,11 +18,20 @@ if ($user_type == 'admin'): ?>
     <?php
     $to_cart = $_REQUEST['cart'] ?? false; // $to_cart = isset($_REQUEST['cart']) ? $_REQUEST['cart'] : false;
     if ($to_cart) { ?>
-        <div style="text-align: center; padding: 150px 150px;">
-            <p style="font-weight: 700;">TODO: Make a cart page</h1>
-            <p>with quantity listing functionality</p>
-            <p>utilizing multi-dimensional array (a.k.a., dictionary) and cookies</p>
-        </div>
+        <p style="font-size: x-large; font-weight: bold; text-align: center; margin-bottom: 100px;">CART</p>
+        <?php foreach ($products_cart as $id => $in_cart) { ?>
+            <div class="container_cart">
+                <div class="in_cart_product">
+                    <img src=<?php echo $in_cart['picture'] ?> alt=<?php echo $in_cart['name'] ?>>
+                    <p>
+                        <?php echo $in_cart['name'] ?>
+                    </p>
+                    <p>Quantity:
+                        <?php echo $in_cart['quantity'] ?>
+                    </p>
+                </div>
+            </div>
+        <?php } ?>
     <?php } else { ?>
         <div class="fashion_section">
             <div id="main_slider" class="carousel slide" data-ride="carousel">
