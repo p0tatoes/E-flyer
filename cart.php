@@ -50,6 +50,4 @@ if ($carted_prod == 3) {
     $products_cart[2] = $added_product;
     setcookie("products_cart", serialize($products_cart), time() + 86400, '/');
 }
-
-print_r($products_cart);
 ?>

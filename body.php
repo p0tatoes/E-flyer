@@ -18,7 +18,7 @@ if ($user_type == 'admin'): ?>
     <?php
     $to_cart = $_REQUEST['cart'] ?? false; // $to_cart = isset($_REQUEST['cart']) ? $_REQUEST['cart'] : false;
     if ($to_cart) { ?>
-        <p style="font-size: x-large; font-weight: bold; text-align: center; margin-bottom: 100px;">CART</p>
+        <p style="font-size: x-large; font-weight: bold; text-align: center; margin: 100px;">CART</p>
         <?php foreach ($products_cart as $id => $in_cart) { ?>
             <div class="container_cart">
                 <div class="in_cart_product">
