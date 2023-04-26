@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="css/table-style.css">
+
 <?php
 // Get the current year and month
 $year = date('Y');
@@ -16,10 +18,10 @@ $month_name = $date->format('F');
 $first_day_index = (int) date('w', strtotime("$year-$month-01"));
 
 // Start the table and print the month name
-echo "<table width=80% border=1><caption>$month_name $year</caption>";
+echo "<table width=80% border=1 class='admin_table'><caption>$month_name $year</caption>";
 
 // Print the table headers (days of the week)
-echo "<tr>";
+echo '<tr class="calendar_row">';
 echo "<th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th>";
 echo "<th>Thu</th><th>Fri</th><th>Sat</th>";
 echo "</tr>";

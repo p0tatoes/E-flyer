@@ -7,8 +7,10 @@ include 'cart.php';
 
 $user_type = $_COOKIE['type'] ?? '';
 
-if ($user_type == 'admin'):
-    include 'calendar.php'; ?>
+if ($user_type == 'admin'): ?>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <?php include 'calendar.php'; ?>
+    </div>
     <figure id="dashboard" style="display: flex; justify-content: center; align-items: center;"><img
             src="./images/temp-dashboard.gif" alt="temporary dashboard"></figure>
 <?php else: ?>
