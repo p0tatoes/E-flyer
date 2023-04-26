@@ -4,8 +4,8 @@ include 'cart.php';
 
 $user_type = $_COOKIE['type'] ?? '';
 
-if ($user_type == 'admin'): ?>
-    <p style="text-align: center;">temp dashboard</p>
+if ($user_type == 'admin'):
+    include 'calendar.php'; ?>
     <figure id="dashboard" style="display: flex; justify-content: center; align-items: center;"><img
             src="./images/temp-dashboard.gif" alt="temporary dashboard"></figure>
 <?php else: ?>
