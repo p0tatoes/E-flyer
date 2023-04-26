@@ -1,5 +1,8 @@
 <?php
+// MySQL snippet
 include 'head.php';
+
+// Cart functionality
 include 'cart.php';
 
 $user_type = $_COOKIE['type'] ?? '';
@@ -11,10 +14,10 @@ if ($user_type == 'admin'):
 <?php else: ?>
     <!-- fashion section start -->
     <?php
-    $to_cart = $_REQUEST['cart'] ?? false;
+    $to_cart = $_REQUEST['cart'] ?? false; // $to_cart = isset($_REQUEST['cart']) ? $_REQUEST['cart'] : false;
     if ($to_cart) { ?>
         <div style="text-align: center; padding: 150px 150px;">
-            <h1>TODO: Make a cart page</h1>
+            <p style="font-weight: 700;">TODO: Make a cart page</h1>
             <p>with quantity listing functionality</p>
             <p>utilizing multi-dimensional array (a.k.a., dictionary) and cookies</p>
         </div>
