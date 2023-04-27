@@ -22,13 +22,13 @@ if ($register_name != "" && $register_email != "" && $register_password != "" &&
         $all_results = mysqli_query($shopee, $query_all) or die(mysqli_error($shopee));
         $total_registered_accounts = mysqli_num_rows($all_results);
         if ($total_registered_accounts == 0):
-            $register_query = "insert into user(email, passwd, contact, name, address, usertype, user_date, user_ip) values('" . $_REQUEST['email'] . "', '" . $_REQUEST['password'] . "', '" . $_REQUEST['contact'] . "', '" . $_REQUEST['name'] . "' ,'" . $_REQUEST['address'] . "', 'admin', '" . date("Y-m-d h:i:s") . "', '" . $_SERVER['REMOTE_ADDR'] . "')";
-            $update_query = mysqli_query($shopee, $register_query) or die(mysqli_error($shopee));
+            $register_usertype = 'admin';
         else:
-            $register_query = "insert into user(email, passwd, contact, name, address, usertype, user_date, user_ip) values('" . $_REQUEST['email'] . "', '" . $_REQUEST['password'] . "', '" . $_REQUEST['contact'] . "', '" . $_REQUEST['name'] . "' ,'" . $_REQUEST['address'] . "', 'customer', '" . date("Y-m-d h:i:s") . "', '" . $_SERVER['REMOTE_ADDR'] . "')";
-            $update_query = mysqli_query($shopee, $register_query) or die(mysqli_error($shopee));
+            $register_usertype = 'customer';
         endif;
-        echo '<meta http-equiv="refresh" content="0;url=index.php?action=login&#login_form">';
+        $register_query = "insert into user(email, passwd, contact, name, address, usertype, user_date, user_ip) values('" . $_REQUEST['email'] . "', '" . $_REQUEST['password'] . "', '" . $_REQUEST['contact'] . "', '" . $_REQUEST['name'] . "' ,'" . $_REQUEST['address'] . "', '" . $register_usertype . "', '" . date("Y-m-d h:i:s") . "', '" . $_SERVER['REMOTE_ADDR'] . "')";
+        $update_query = mysqli_query($shopee, $register_query) or die(mysqli_error($shopee));
+        echo '<meta http-equiv="refresh" content="0; url=index.php?action=login&#login_form">';
         echo '<script>alert("Account has been registered")</script>';
     } else {
         echo '<meta http-equiv="refresh" content="0;url=index.php?action=register&#login_form">';
