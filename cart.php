@@ -22,7 +22,7 @@ setcookie("products_cart", serialize($products_cart), time() + 86400, '/');
 $carted_prod = $_REQUEST['prod_id'] ?? null;
 
 /**
- * ADDING TO CART WORKS! but has error on first click
+ * ADDING TO CART WORKS!
  */
 if ($carted_prod == 1) {
     // increase quantity of man t-shirt in the cart by 1

@@ -154,9 +154,17 @@
                <div class="carousel-inner">
                   <div class="carousel-item active">
                      <div class="row">
-                        <div class="col-sm-12">
-                           <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                           <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                        <div class="col-sm-12"
+                           style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                           <?php
+                           $user_type = $_COOKIE['type'] ?? '';
+                           if ($user_type == 'admin') {
+                              include 'calendar.php';
+                           } else {
+                              ?>
+                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                              <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           <?php } ?>
                         </div>
                      </div>
                   </div>
