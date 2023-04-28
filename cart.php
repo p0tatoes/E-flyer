@@ -18,7 +18,6 @@ $store_products = [
 ];
 
 $products_cart = isset($_COOKIE['products_cart']) ? unserialize($_COOKIE['products_cart']) : [];
-setcookie("products_cart", serialize($products_cart), time() + 86400, '/');
 $carted_prod = $_REQUEST['prod_id'] ?? null;
 
 /**
