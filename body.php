@@ -1,7 +1,4 @@
 <?php
-// MySQL snippet
-include 'head.php';
-
 // Cart functionality
 include 'cart.php';
 
