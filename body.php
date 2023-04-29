@@ -1,6 +1,7 @@
 <?php
 // Cart functionality
 include 'cart.php';
+include 'head.php';
 
 $user_type = $_COOKIE['type'] ?? '';
 
@@ -27,158 +28,81 @@ if ($user_type == 'admin'): ?>
             </div>
         <?php } ?>
     <?php } else { ?>
-        <div class="fashion_section">
-            <div class="carousel-item active">
-                <div class="container">
-                    <h1 class="fashion_taital">Man & Woman Fashion</h1> <!-- Category  -->
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <!-- Product ID #1 : Man T-shirt -->
-                                <div class="box_main">
-                                    <!-- Product Name  -->
-                                    <h4 class="shirt_text">Man T -shirt</h4>
+        <!-- Start of database generated content -->
+        <?php
+        /** 
+         * Queries all product categories and loops through each category to display the category and its respective products
+         */
+        $category_query = 'SELECT category FROM products GROUP BY category';
+        $category_search = mysqli_query($lazada, $category_query);
+        $category_list = mysqli_fetch_all($category_search);
+        foreach ($category_list as $category) {
+            $product_category = $category[0]; ?>
+            <div class="fashion_section">
+                <div class="carousel-item active">
+                    <div class="container">
+                        <h1 class="fashion_taital">
+                            <?php echo strtoupper($product_category) ?> <!-- Category  -->
+                        </h1>
+                        <div class="fashion_section_2">
+                            <div class="row">
+                                <?php
+                                /**
+                                 * Queries all products in a certain category and loops through each product to display
+                                 */
+                                $product_query = "SELECT * FROM products where category='$product_category'";
+                                $product_search = mysqli_query($lazada, $product_query);
+                                $product_list = mysqli_fetch_all($product_search);
+                                foreach ($product_list as $product) {
+                                    $id = $product[0];
+                                    $category = $product[1];
+                                    $name = $product[2];
+                                    $image = $product[5];
+                                    $quantity = $product[6];
+                                    /**
+                                     * If promo price is greater than 0, set display price to promo price
+                                     * Else, display original price
+                                     */
+                                    $price = $product[8] > 0 ? $product[8] : $product[7];
+                                    ?>
+                                    <div class="col-lg-4 col-sm-4">
+                                        <div class="box_main">
+                                            <h4 class="shirt_text">
+                                                <?php echo $name ?> <!-- Product Name  -->
+                                            </h4>
 
-                                    <!-- Original or Promo Price  -->
-                                    <p class="price_text">Price <span style="color: #262626;">$ 30</span></p>
+                                            <!-- Original or Promo Price  -->
+                                            <p class="price_text">Price
+                                                <span style="color: #262626;">
+                                                    $
+                                                    <?php echo $price ?>
+                                                </span>
+                                            </p>
 
-                                    <!-- Image Link  -->
-                                    <div class="tshirt_img"><img src="images/tshirt-img.png"></div>
+                                            <div class="tshirt_img">
+                                                <img src=<?php echo $image ?>> <!-- Image Link  -->
+                                            </div>
 
-                                    <!-- "Buy now" Button -->
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="?prod_id=1">Buy Now</a></div>
+                                            <div class="btn_main">
+                                                <div class="buy_bt">
+                                                    <a href=<?php echo "index.php?prod_id=$id" ?>>Buy Now</a> <!-- "Buy now" Button -->
+                                                </div>
+                                                <p>
+                                                    Quantity:
+                                                    <?php echo $quantity ?>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <!-- Product ID #2 : Man Polo Shirt -->
-                                <div class="box_main">
-                                    <!-- Product Name -->
-                                    <h4 class="shirt_text">Man Shirt</h4>
-
-                                    <!-- Original or Promo Price -->
-                                    <p class="price_text">Price <span style="color: #262626;">$ 30</span></p>
-
-                                    <!-- Image Link -->
-                                    <div class="tshirt_img"><img src="images/dress-shirt-img.png"></div>
-
-                                    <!-- "Buy now" Button -->
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="?prod_id=2">Buy Now</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <!-- Product ID #3 : Woman Dress -->
-                                <div class="box_main">
-                                    <!-- Product Name -->
-                                    <h4 class="shirt_text">Woman Scarf</h4>
-
-                                    <!-- Original or Promo Price -->
-                                    <p class="price_text">Price <span style="color: #262626;">$ 30</span></p>
-
-                                    <!-- Image Link -->
-                                    <div class="tshirt_img"><img src="images/women-clothes-img.png"></div>
-
-                                    <!-- "Buy now" Button -->
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="?prod_id=3">Buy Now</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- fashion section end -->
-        <!-- electronic section start -->
-        <div class="fashion_section">
-            <div class="carousel-item active">
-                <div class="container">
-                    <h1 class="fashion_taital">Electronic</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Laptop</h4>
-                                    <p class="price_text">Start Price <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Mobile</h4>
-                                    <p class="price_text">Start Price <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Computers</h4>
-                                    <p class="price_text">Start Price <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    </div>
-                                </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- electronic section end -->
-        <!-- jewellery  section start -->
-        <div class="jewellery_section">
-            <div class="carousel-item active">
-                <div class="container">
-                    <h1 class="fashion_taital">Jewellery Accessories</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Jumkas</h4>
-                                    <p class="price_text">Start Price <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/jhumka-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Necklaces</h4>
-                                    <p class="price_text">Start Price <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/neklesh-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Kangans</h4>
-                                    <p class="price_text">Start Price <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/kangan-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- jewellery  section end -->
+        <?php } ?>
+        <!-- End of database generated content -->
+
         <!-- footer section start -->
         <div class="footer_section layout_padding">
             <div class="container">

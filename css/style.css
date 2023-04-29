@@ -586,6 +586,7 @@ a:hover {
 .btn_main {
   width: 100%;
   display: flex;
+  align-items: center;
 }
 
 .buy_bt {
