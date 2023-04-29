@@ -14,12 +14,12 @@ $register_contact = $_REQUEST['contact'] ?? '';
 $register_address = $_REQUEST['address'] ?? '';
 if ($register_name != "" && $register_email != "" && $register_password != "" && $register_contact != "" && $register_address != "") {
     $register_query = "select * from user where email='" . $_REQUEST['email'] . "'";
-    $register_result = mysqli_query($shopee, $register_query) or die(mysqli_error($shopee));
+    $register_result = mysqli_query($lazada, $register_query) or die(mysqli_error($lazada));
     $total_registered_accounts = mysqli_num_rows($register_result);
 
     if ($total_registered_accounts == 0) {
         $query_all = "select * from user";
-        $all_results = mysqli_query($shopee, $query_all) or die(mysqli_error($shopee));
+        $all_results = mysqli_query($lazada, $query_all) or die(mysqli_error($lazada));
         $total_registered_accounts = mysqli_num_rows($all_results);
         if ($total_registered_accounts == 0):
             $register_usertype = 'admin';
@@ -27,7 +27,7 @@ if ($register_name != "" && $register_email != "" && $register_password != "" &&
             $register_usertype = 'customer';
         endif;
         $register_query = "insert into user(email, passwd, contact, name, address, usertype, user_date, user_ip) values('" . $_REQUEST['email'] . "', '" . $_REQUEST['password'] . "', '" . $_REQUEST['contact'] . "', '" . $_REQUEST['name'] . "' ,'" . $_REQUEST['address'] . "', '" . $register_usertype . "', '" . date("Y-m-d h:i:s") . "', '" . $_SERVER['REMOTE_ADDR'] . "')";
-        $update_query = mysqli_query($shopee, $register_query) or die(mysqli_error($shopee));
+        $update_query = mysqli_query($lazada, $register_query) or die(mysqli_error($lazada));
         echo '<meta http-equiv="refresh" content="0; url=index.php?action=login&#login_form">';
         echo '<script>alert("Account has been registered")</script>';
     } else {

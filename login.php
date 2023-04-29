@@ -11,7 +11,7 @@ $action = $_REQUEST['action'] ?? '';
 
 if ($logging_in) {
     $login_query = "select * from user where email='" . $_REQUEST['email'] . "' and passwd='" . $_REQUEST['password'] . "'";
-    $login_result = mysqli_query($shopee, $login_query) or die(mysqli_error($shopee));
+    $login_result = mysqli_query($lazada, $login_query) or die(mysqli_error($lazada));
     $total_accounts = mysqli_num_rows($login_result);
     if ($total_accounts == 0) {
         echo '<meta http-equiv="refresh" content="0;url=index.php?action=register&#login_form">';
