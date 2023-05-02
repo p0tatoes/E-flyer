@@ -17,12 +17,12 @@ if ($user_type == 'admin'): ?>
         <?php foreach ($products_cart as $id => $in_cart) { ?>
             <div class="container_cart">
                 <div class="in_cart_product">
-                    <img src=<?php echo $in_cart['picture'] ?> alt=<?php echo $in_cart['name'] ?>>
+                    <img src=<?php echo $in_cart[4] ?> alt=<?php echo $in_cart[2] ?>>
                     <p>
-                        <?php echo $in_cart['name'] ?>
+                        <?php echo $in_cart[2] ?>
                     </p>
                     <p>Quantity:
-                        <?php echo $in_cart['quantity'] ?>
+                        <?php echo $in_cart[7] ?>
                     </p>
                 </div>
             </div>
