@@ -1,0 +1,10 @@
+Exer4
+-Product menu must have categories, product name, unit price, quantity, total price, actions
+-My orders menu must contain all the products clicked(acts as a cart)
+-My orders must have image, userid, prodid, quantity, status, and date
+-My orders must have pending, accepted, completed, and refund count whilst also be clickable to be its own menu and show all the pending orders, accepted orders, completed and refund orders.
+-Accepted menu must have a total cost
+
+-Admin must have ability to approve orders of pending orders.
+-Pending, accepted, completed and return/refund counts must have its own countings that reflects the amount of orders in that category.
+-In order to remove overhead, remove 
