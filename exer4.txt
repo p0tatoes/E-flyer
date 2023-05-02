@@ -2,9 +2,12 @@ Exer4
 -Product menu must have categories, product name, unit price, quantity, total price, actions
 -My orders menu must contain all the products clicked(acts as a cart)
 -My orders must have image, userid, prodid, quantity, status, and date
--My orders must have pending, accepted, completed, and refund count whilst also be clickable to be its own menu and show all the pending orders, accepted orders, completed and refund orders.
--Accepted menu must have a total cost
+-My orders must have pending, accepted, completed, and refund count.
+-The pending/accepted counts must be clickable and are actual menus that show all the pending orders, accepted orders, completed and refund orders.
+-In order to remove the overhead of having to run multiple SQLs just to get the amount of orders in each category, do the SQL query once, then store it and reuse it everytime the pending/accepted/completed tab count is required.
+-Accepted menu must have a total cost of how much all the products costs
+-Users must have different My orders count
 
 -Admin must have ability to approve orders of pending orders.
--Pending, accepted, completed and return/refund counts must have its own countings that reflects the amount of orders in that category.
--In order to remove overhead, remove 
+
+-Header and footer must still exist when creating the main menus, in short, body must contain all the content.
