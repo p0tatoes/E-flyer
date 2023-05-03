@@ -49,4 +49,17 @@ foreach ($product_list as $key => $product) {
         print_r($products_cart);
     }
 }
+
+/**
+ * deleting items from product cart
+ */
+$uncarted_prod = $_REQUEST["del_prod"] ?? 0;
+if ($uncarted_prod > 0) {
+    foreach ($products_cart as $key => $product) {
+        if ($uncarted_prod == $product[0]) {
+            unset($products_cart[$key]);
+            setcookie("products_cart", serialize($products_cart), time() + 86400, '/');
+        }
+    }
+}
 ?>
