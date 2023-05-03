@@ -11,40 +11,55 @@ if ($user_type == 'admin'): ?>
 <?php else: ?>
     <!-- fashion section start -->
     <?php
+    // * Cart page/view
     $to_cart = $_REQUEST['cart'] ?? false; // $to_cart = isset($_REQUEST['cart']) ? $_REQUEST['cart'] : false;
     if ($to_cart) { ?>
         <p style="font-size: x-large; font-weight: bold; text-align: center; margin: 100px;">CART</p>
-        <form action="index.php" method="post">
-            <table style="display: flex; justify-content: center; align-items: center;">
-                <?php foreach ($products_cart as $id => $in_cart) { ?>
-                    <tr>
-                        <td style="padding: 70px">
-                            <input type="checkbox" name=<?php echo $in_cart[0] ?> id=<?php echo $in_cart[0] ?>>
-                        </td>
-                        <td style="padding: 70px">
-                            <img src="<?php echo $in_cart[4] ?>" alt="product">
-                        </td>
-                        <td style="padding: 70px">
-                            <?php echo $in_cart[3] ?>
-                        </td>
-                        <td style="padding: 70px">
-                            <?php echo $in_cart[2] ?>
-                        </td>
-                        <td style="padding: 70px">
-                            <?php echo $in_cart[7] ?>
-                        </td>
-                        <td style="padding: 70px">
-                            <?php echo $in_cart[6] ?>
-                        </td>
-                        <td style="padding: 70px">
-                            <button type="submit" name="del_prod" value=<?php echo $in_cart[0] ?>>Delete</button>
-                        </td>
-                    </tr>
-                <?php } ?>
-            </table>
-            <input style="width: 100%; padding-top: 10px; padding-bottom: 10px; background-color: yellow;" type="submit"
-                value="Place orders">
-        </form>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <form action="index.php?cart=true" method="post">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="padding-left: 70px; padding-right: 70px;"></th>
+                            <th style="padding-left: 70px; padding-right: 70px;">Description</th>
+                            <th style="padding-left: 70px; padding-right: 70px;">Name</th>
+                            <th style="padding-left: 70px; padding-right: 70px;">Quantity</th>
+                            <th style="padding-left: 70px; padding-right: 70px;">Total Price</th>
+                            <th style="padding-left: 70px; padding-right: 70px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($products_cart as $id => $in_cart) { ?>
+                            <tr>
+                                <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
+                                    <input type="checkbox" name=<?php echo $in_cart[0] ?> id=<?php echo $in_cart[0] ?>>
+                                </td>
+                                <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
+                                    <img src="<?php echo $in_cart[4] ?>" alt="product">
+                                </td>
+                                <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
+                                    <?php echo $in_cart[3] ?>
+                                </td>
+                                <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
+                                    <?php echo $in_cart[2] ?>
+                                </td>
+                                <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
+                                    <?php echo $in_cart[7] ?>
+                                </td>
+                                <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
+                                    <?php echo $in_cart[6] * $in_cart[7] ?>
+                                </td>
+                                <td style="padding-left: 70px; padding-right: 70px;">
+                                    <button type="submit" name="del_prod" value=<?php echo $in_cart[0] ?>>Delete</button>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <input style="width: 100%; padding-top: 10px; padding-bottom: 10px; background-color: yellow;" type="submit"
+                    value="Place orders">
+            </form>
+        </div>
     <?php } else { ?>
         <!-- Start of database generated content -->
         <?php
