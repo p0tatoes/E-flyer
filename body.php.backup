@@ -14,53 +14,26 @@ if ($user_type == 'admin'): ?>
     $to_cart = $_REQUEST['cart'] ?? false; // $to_cart = isset($_REQUEST['cart']) ? $_REQUEST['cart'] : false;
     if ($to_cart) { ?>
         <p style="font-size: x-large; font-weight: bold; text-align: center; margin: 100px;">CART</p>
-        <form action="index.php" method="post">
-            <table style="display: flex; justify-content: center; align-items: center;">
-                <?php foreach ($products_cart as $id => $in_cart) { ?>
-                    <tr>
-                        <td style="padding: 70px">
-                            <input type="checkbox" name=<?php echo $in_cart[0] ?> id=<?php echo $in_cart[0] ?>>
-                        </td>
-                        <td style="padding: 70px">
-                            <img src="<?php echo $in_cart[4] ?>" alt="product">
-                        </td>
-                        <td style="padding: 70px">
-                            <?php echo $in_cart[3] ?>
-                        </td>
-                        <td style="padding: 70px">
-                            <?php echo $in_cart[2] ?>
-                        </td>
-                        <td style="padding: 70px">
-                            <?php echo $in_cart[7] ?>
-                        </td>
-                        <td style="padding: 70px">
-                            <?php echo $in_cart[6] ?>
-                        </td>
-                        <td style="padding: 70px">
-                            <button type="submit" name="del_prod" value=<?php echo $in_cart[0] ?>>Delete</button>
-                        </td>
-                    </tr>
-                <?php } ?>
-            </table>
-            <input style="width: 100%; padding-top: 10px; padding-bottom: 10px; background-color: yellow;" type="submit"
-                value="Place orders">
-        </form>
+        <?php foreach ($products_cart as $id => $in_cart) { ?>
+            <div class="container_cart">
+                <div class="in_cart_product">
+                    <img src=<?php echo $in_cart[4] ?> alt=<?php echo $in_cart[2] ?>>
+                    <p>
+                        <?php echo $in_cart[2] ?>
+                    </p>
+                    <p>Quantity:
+                        <?php echo $in_cart[7] ?>
+                    </p>
+                </div>
+            </div>
+        <?php } ?>
     <?php } else { ?>
         <!-- Start of database generated content -->
         <?php
         /** 
          * Queries all product categories and loops through each category to display the category and its respective products
          */
-        $selected_category = $_REQUEST['prod_cat'] ?? '';
         $category_query = 'SELECT category FROM products GROUP BY category';
-
-        /**
-         * quries only the category that was pressed by the user
-         */
-        if ($selected_category != "") {
-            $category_query = "SELECT category FROM PRODUCTS WHERE category='$selected_category' GROUP BY category";
-        }
-
         $category_search = mysqli_query($lazada, $category_query);
         $category_list = mysqli_fetch_all($category_search);
         foreach ($category_list as $category) {
@@ -68,11 +41,9 @@ if ($user_type == 'admin'): ?>
             <div class="fashion_section">
                 <div class="carousel-item active">
                     <div class="container">
-                        <a href="?prod_cat=<?php echo $product_category ?>">
-                            <h1 class="fashion_taital">
-                                <?php echo strtoupper($product_category) ?> <!-- Category  -->
-                            </h1>
-                        </a>
+                        <h1 class="fashion_taital">
+                            <?php echo strtoupper($product_category) ?> <!-- Category  -->
+                        </h1>
                         <div class="fashion_section_2">
                             <div class="row">
                                 <?php
