@@ -39,14 +39,11 @@ foreach ($product_list as $key => $product) {
          */
         if ($in_cart === false) {
             $products_cart[] = [$product_id, $product_category, $product_name, $product_description, $product_image, $product_quantity, $product_price, 1];
-            echo 'in_cart == false <br>';
         } else {
             $carted_quantity = $products_cart[$cart_id][7];
             $products_cart[$cart_id] = [$product_id, $product_category, $product_name, $product_description, $product_image, $product_quantity, $product_price, $carted_quantity + 1];
-            echo 'in_cart == true <br>';
         }
         setcookie("products_cart", serialize($products_cart), time() + 86400, '/');
-        print_r($products_cart);
     }
 }
 

@@ -18,6 +18,7 @@ if ($user_type == 'admin'): ?>
         <div style="display: flex; justify-content: center; align-items: center;">
             <form action="index.php?cart=true" method="post">
                 <table>
+                    <!-- Cart header -->
                     <thead>
                         <tr>
                             <th colspan="2" style="padding-left: 70px; padding-right: 70px;"></th>
@@ -28,6 +29,7 @@ if ($user_type == 'admin'): ?>
                             <th style="padding-left: 70px; padding-right: 70px;">Actions</th>
                         </tr>
                     </thead>
+                    <!-- Carted products -->
                     <tbody>
                         <?php foreach ($products_cart as $id => $in_cart) { ?>
                             <tr>
