@@ -75,4 +75,23 @@ if ($updated_prod > 0) {
         }
     }
 }
+
+// TODO: finish add to purchase database functionality
+$purchase_products = $_REQUEST["cart_product"] ?? null;
+$user_id = $_COOKIE['user_id'] ?? null;
+if (isset($purchase_products) && isset($user_id)) {
+    foreach ($purchase_products as $key => $purchase_product) {
+        $product_id = $purchase_product[0];
+
+        foreach ($products_cart as $key => $cart_product) {
+            $cart_id = $cart_product[0];
+            $cart_quantity = $cart_product[7];
+            if ($product_id == $cart_id) {
+                $purchase_query = "INSERT INTO purchases VALUES($user_id, $product_id, $cart_quantity, NOW(), 'pending')";
+                $purchase_update = mysqli_query($lazada, $purchase_query);
+            }
+        }
+    }
+}
+
 ?>

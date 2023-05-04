@@ -16,7 +16,7 @@ if ($user_type == 'admin'): ?>
     if ($to_cart) { ?>
         <p style="font-size: x-large; font-weight: bold; text-align: center; margin: 100px;">CART</p>
         <div style="display: flex; justify-content: center; align-items: center;">
-            <form action="index.php?cart=true" method="get">
+            <form action="index.php?cart=true" method="post">
                 <table>
                     <!-- Cart header -->
                     <thead>
@@ -37,12 +37,12 @@ if ($user_type == 'admin'): ?>
                             $product_name = $in_cart[2];
                             $product_description = $in_cart[3];
                             $product_img = $in_cart[4];
-                            $product_price = $in_cart[6];
                             $carted_quantity = $in_cart[7];
+                            $product_price = $in_cart[6] * $carted_quantity;
                             ?>
                             <tr>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
-                                    <input type="checkbox" name=<?php echo $product_id ?> id=<?php echo $product_id ?>>
+                                    <input type="checkbox" name="cart_product[]" value=<?php echo $product_id ?>>
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
                                     <img src="<?php echo $product_img ?>" alt="product">
@@ -54,7 +54,7 @@ if ($user_type == 'admin'): ?>
                                     <?php echo $product_name ?>
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
-                                    <form action="index.php?cart=true" method="get">
+                                    <form action="index.php?cart=true" method="post">
                                         <select name="product_quantity" onchange="this.form.submit()">
                                             <?php
                                             // Queries available quantity in database for product, using its product id
@@ -64,7 +64,7 @@ if ($user_type == 'admin'): ?>
 
                                             // dynamically creates options for the select object based on the quantity of the product in the products database
                                             // @product_quantity - product quantity of the carted product
-                                            for ($range = 0; $range <= $product_quantity[0]; $range++) {
+                                            for ($range = 1; $range <= $product_quantity[0]; $range++) {
                                                 if ($range == $carted_quantity) { ?>
                                                     <option value=<?php echo $range ?> selected><?php echo $range ?></option>
                                                     <?php continue;
@@ -78,7 +78,7 @@ if ($user_type == 'admin'): ?>
                                     </form>
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
-                                    <?php echo $product_price * $carted_quantity ?>
+                                    <?php echo $product_price ?>
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px;">
                                     <button type="submit" name="del_prod" value=<?php echo $product_id ?>>Delete</button>
