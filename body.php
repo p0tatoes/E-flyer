@@ -16,7 +16,7 @@ if ($user_type == 'admin'): ?>
     if ($to_cart) { ?>
         <p style="font-size: x-large; font-weight: bold; text-align: center; margin: 100px;">CART</p>
         <div style="display: flex; justify-content: center; align-items: center;">
-            <form action="index.php?cart=true" method="post">
+            <form action="index.php?cart=true" method="get">
                 <table>
                     <!-- Cart header -->
                     <thead>
@@ -54,20 +54,28 @@ if ($user_type == 'admin'): ?>
                                     <?php echo $product_name ?>
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
-                                    <select name="product_quantity" id="product_quantity">
-                                        <?php
-                                        // Queries available quantity in database for product, using its product id
-                                        $quantity_query = "SELECT quantity FROM products where id=$product_id";
-                                        $quantity_search = mysqli_query($lazada, $quantity_query);
-                                        $product_quantity = mysqli_fetch_array($quantity_search);
-                                        for ($range = 0; $range <= $product_quantity[0]; $range++) {
-                                            if ($range == $carted_quantity) { ?>
-                                                <option value=<?php echo $range ?> selected><?php echo $range ?></option>
-                                                <?php continue;
-                                            } ?>
-                                            <option value=<?php echo $range ?>><?php echo $range ?></option>
-                                        <?php } ?>
-                                    </select>
+                                    <form action="index.php?cart=true" method="get">
+                                        <select name="product_quantity" onchange="this.form.submit()">
+                                            <?php
+                                            // Queries available quantity in database for product, using its product id
+                                            $quantity_query = "SELECT quantity FROM products where id=$product_id";
+                                            $quantity_search = mysqli_query($lazada, $quantity_query);
+                                            $product_quantity = mysqli_fetch_array($quantity_search);
+
+                                            // dynamically creates options for the select object based on the quantity of the product in the products database
+                                            // @product_quantity - product quantity of the carted product
+                                            for ($range = 0; $range <= $product_quantity[0]; $range++) {
+                                                if ($range == $carted_quantity) { ?>
+                                                    <option value=<?php echo $range ?> selected><?php echo $range ?></option>
+                                                    <?php continue;
+                                                } ?>
+                                                <option value=<?php echo $range ?>><?php echo $range ?></option>
+                                            <?php } ?>
+
+                                            <!-- @update_prod - product id of the quantity to be updated when select option for quantity  -->
+                                        </select>
+                                        <input type="hidden" name="update_prod" value=<?php echo $product_id ?>>
+                                    </form>
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
                                     <?php echo $product_price * $carted_quantity ?>

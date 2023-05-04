@@ -59,4 +59,20 @@ if ($uncarted_prod > 0) {
         }
     }
 }
+
+/**
+ * ! Does not work
+ * update product quantity from cart page
+ */
+$updated_prod = $_REQUEST['update_prod'] ?? 0;
+$updated_quantity = $_REQUEST['product_quantity'] ?? 0;
+if ($updated_prod > 0) {
+    foreach ($products_cart as $key => &$product) {
+        $product_id = $product[0];
+        if ($product_id == $updated_prod) {
+            $product[7] = $updated_quantity;
+            setcookie("products_cart", serialize($products_cart), time() + 86400, '/');
+        }
+    }
+}
 ?>
