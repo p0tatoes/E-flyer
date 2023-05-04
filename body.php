@@ -32,6 +32,7 @@ if ($user_type == 'admin'): ?>
                     <!-- Carted products -->
                     <tbody>
                         <?php
+                        $total_price = 0;
                         foreach ($products_cart as $id => $in_cart) {
                             $product_id = $in_cart[0];
                             $product_name = $in_cart[2];
@@ -39,6 +40,7 @@ if ($user_type == 'admin'): ?>
                             $product_img = $in_cart[4];
                             $carted_quantity = $in_cart[7];
                             $product_price = $in_cart[6] * $carted_quantity;
+                            $total_price += $product_price;
                             ?>
                             <tr>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
@@ -85,6 +87,12 @@ if ($user_type == 'admin'): ?>
                                 </td>
                             </tr>
                         <?php } ?>
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding-top: 10px; padding-bottom: 70px;">
+                                <strong>TOTAL: </strong>
+                                <?php echo $total_price ?>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <input style="width: 100%; padding-top: 10px; padding-bottom: 10px; background-color: yellow;" type="submit"
