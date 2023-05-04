@@ -45,11 +45,6 @@ for ($day = 1; $day <= $num_days; $day++) {
     echo "<td align=center>$day</td>";
 }
 
-// Print blank cells for the days after the last day of the month
-for ($i = $num_days + $first_day_index; $i < 42; $i++) {
-    echo "<td></td>";
-}
-
 // End the last row and the table
 echo "</tr></table>";
 ?>
