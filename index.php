@@ -67,6 +67,12 @@ $user_type = $_COOKIE['type'] ?? '';
                               Welcome,
                               <?php echo $_COOKIE['email'] . ' (' . $_COOKIE['type'] . ')' ?>
                            </li>
+                           <?php
+                           if ($_COOKIE['type'] == 'customer') { ?>
+                              <li>
+                                 <a href="orders.php">My Orders</a>
+                              </li>
+                           <?php } ?>
                            <li><a href="logout.php">Logout</a></li>
                         </ul>
                      <?php endif ?>
@@ -98,7 +104,12 @@ $user_type = $_COOKIE['type'] ?? '';
                   <a href="electronic.html">Electronic</a>
                   <a href="jewellery.html">Jewellery</a>
                </div>
-               <a href="./index.php"><span class="toggle_icon"><img src="images/toggle-icon.png"></span></a>
+
+               <!-- ? remove probably -->
+               <!-- <a href="./index.php"><span class="toggle_icon"><img src="images/toggle-icon.png"></span></a> -->
+
+               <a href="./index.php"><span class="toggle_icon"><i class="fa fa-home" aria-hidden="true"
+                        style="transform: scale(3.5);"></i></span></a>
                <div class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
