@@ -168,7 +168,11 @@ if ($user_type == 'admin'): ?>
 
                                             <div class="btn_main">
                                                 <div class="buy_bt">
-                                                    <a href=<?php echo "index.php?prod_id=$id" ?>>Buy Now</a> <!-- "Buy now" Button -->
+                                                    <?php if ($quantity > 0) { ?>
+                                                        <a href=<?php echo "index.php?prod_id=$id" ?>>Buy Now</a> <!-- "Buy now" Button -->
+                                                    <?php } else { ?>
+                                                        <p>Out of stock :(</p>
+                                                    <?php } ?>
                                                 </div>
                                                 <p>
                                                     Quantity:
