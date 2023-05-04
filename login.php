@@ -18,6 +18,7 @@ if ($logging_in) {
         echo '<script>alert("Account appears to not be registered. Sign up an account to login!")</script>';
     } else {
         $account = mysqli_fetch_array($login_result);
+        setcookie("user_id", $account['id'], time() + 86400, '/');
         setcookie("email", $account['email'], time() + 86400, '/');
         setcookie("type", $account['usertype'], time() + 86400, '/');
         echo '<meta http-equiv="refresh" content="0; url=index.php">';
