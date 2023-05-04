@@ -31,28 +31,49 @@ if ($user_type == 'admin'): ?>
                     </thead>
                     <!-- Carted products -->
                     <tbody>
-                        <?php foreach ($products_cart as $id => $in_cart) { ?>
+                        <?php
+                        foreach ($products_cart as $id => $in_cart) {
+                            $product_id = $in_cart[0];
+                            $product_name = $in_cart[2];
+                            $product_description = $in_cart[3];
+                            $product_img = $in_cart[4];
+                            $product_price = $in_cart[6];
+                            $carted_quantity = $in_cart[7];
+                            ?>
                             <tr>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
-                                    <input type="checkbox" name=<?php echo $in_cart[0] ?> id=<?php echo $in_cart[0] ?>>
+                                    <input type="checkbox" name=<?php echo $product_id ?> id=<?php echo $product_id ?>>
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
-                                    <img src="<?php echo $in_cart[4] ?>" alt="product">
+                                    <img src="<?php echo $product_img ?>" alt="product">
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
-                                    <?php echo $in_cart[3] ?>
+                                    <?php echo $product_description ?>
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
-                                    <?php echo $in_cart[2] ?>
+                                    <?php echo $product_name ?>
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
-                                    <?php echo $in_cart[7] ?>
+                                    <select name="product_quantity" id="product_quantity">
+                                        <?php
+                                        // Queries available quantity in database for product, using its product id
+                                        $quantity_query = "SELECT quantity FROM products where id=$product_id";
+                                        $quantity_search = mysqli_query($lazada, $quantity_query);
+                                        $product_quantity = mysqli_fetch_array($quantity_search);
+                                        for ($range = 0; $range <= $product_quantity[0]; $range++) {
+                                            if ($range == $carted_quantity) { ?>
+                                                <option value=<?php echo $range ?> selected><?php echo $range ?></option>
+                                                <?php continue;
+                                            } ?>
+                                            <option value=<?php echo $range ?>><?php echo $range ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
-                                    <?php echo $in_cart[6] * $in_cart[7] ?>
+                                    <?php echo $product_price * $carted_quantity ?>
                                 </td>
                                 <td style="padding-left: 70px; padding-right: 70px;">
-                                    <button type="submit" name="del_prod" value=<?php echo $in_cart[0] ?>>Delete</button>
+                                    <button type="submit" name="del_prod" value=<?php echo $product_id ?>>Delete</button>
                                 </td>
                             </tr>
                         <?php } ?>
