@@ -224,13 +224,19 @@ $user_type = $_COOKIE['type'] ?? '';
             <?php
             if (isset($_COOKIE['user_id'])):
                 $user_id = $_COOKIE['user_id'];
-                $pending_query = "SELECT COUNT(*) FROM purchases WHERE status='pending'";
-                $accepted_query = "SELECT COUNT(*) FROM purchases WHERE status='accepted'";
-                $returned_refunded_query = "SELECT COUNT(*) FROM purchases WHERE status='returned' OR status='refunded'";
-
-                $total_pending = mysqli_fetch_all(mysqli_query($lazada, $pending_query), MYSQLI_ASSOC) or die(mysqli_error($lazada));
-                print_r($total_pending);
-                ?>
+                $status_query = "SELECT status, COUNT(status) FROM purchases WHERE user_id=$user_id GROUP BY status";
+                $status_search = mysqli_query($lazada, $status_query);
+                $status_list = mysqli_fetch_all($status_search);
+                foreach ($status_list as $key => $status):
+                    $status_name = $status[0];
+                    $total_status = $status[1];
+                    ?>
+                    <a href="?status=<?php echo $status_name ?>">
+                        <p style="font-size: large; font-weight: 700;">
+                            <?php echo "${status_name}(${total_status})" ?>
+                        </p>
+                    </a>
+                <?php endforeach; ?>
             <?php endif; ?>
         </div>
 
