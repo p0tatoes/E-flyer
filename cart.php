@@ -5,7 +5,7 @@ $products_cart = isset($_COOKIE['products_cart']) ? unserialize($_COOKIE['produc
 $carted_prod = $_REQUEST['prod_id'] ?? null;
 
 /**
- * ? Adding to cart works, probably
+ * Adding to cart works, probably
  * https://youtu.be/QwuWkKGcvVY
  * me rn
  */
@@ -61,7 +61,6 @@ if ($uncarted_prod > 0) {
 }
 
 /**
- * ! Does not work
  * update product quantity from cart page
  */
 $updated_prod = $_REQUEST['update_prod'] ?? 0;
@@ -76,7 +75,6 @@ if ($updated_prod > 0) {
     }
 }
 
-// TODO: finish add to purchase database functionality
 $purchase_products = $_REQUEST["cart_product"] ?? null;
 $user_id = $_COOKIE['user_id'] ?? null;
 if (isset($purchase_products) && isset($user_id)) {
