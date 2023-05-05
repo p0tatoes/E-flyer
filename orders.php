@@ -220,20 +220,50 @@ $user_type = $_COOKIE['type'] ?? '';
     <!-- #My Orders start-->
     <div class="fashion_section" style="display: flex; justify-content: center; align-items: center;">
         <!-- Links to filter orders based on status -->
-        <div style="display: flex; align-items: center; justify-content: center; columns: 100px 4;">
+        <div style="display: flex; align-items: center; justify-content: center; columns: 100px 3;">
             <?php
-            if (isset($_COOKIE['user_id'])):
+            if (isset($_COOKIE['user_id'])) {
+                /**
+                 * Query statements for count of pending, accepted, completed, and returned/refunded orders
+                 */
                 $user_id = $_COOKIE['user_id'];
-                $pending_query = "SELECT COUNT(*) FROM purchases WHERE status='pending'";
-                $accepted_query = "SELECT COUNT(*) FROM purchases WHERE status='accepted'";
-                $returned_refunded_query = "SELECT COUNT(*) FROM purchases WHERE status='returned' OR status='refunded'";
+                $pending_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='pending'";
+                $accepted_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='accepted'";
+                $completed_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='completed'";
+                $returned_refunded_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='returned' OR status='refunded'";
 
-                $total_pending = mysqli_fetch_all(mysqli_query($lazada, $pending_query), MYSQLI_ASSOC) or die(mysqli_error($lazada));
-                print_r($total_pending);
+                /**
+                 * contains the count of pending, accepted, completed, and returned/refunded orders
+                 */
+                $count_pending = mysqli_fetch_assoc(mysqli_query($lazada, $pending_query))['count'];
+                $count_accepted = mysqli_fetch_assoc(mysqli_query($lazada, $accepted_query))['count'];
+                $count_completed = mysqli_fetch_assoc(mysqli_query($lazada, $completed_query))['count'];
+                $count_returned_refunded = mysqli_fetch_assoc(mysqli_query($lazada, $returned_refunded_query))['count'];
                 ?>
-            <?php endif; ?>
+                <a href="?status=pending">
+                    <p style="text-align: center; font-size: large; font-weight: 700;">Pending(
+                        <?php echo $count_pending ?>)
+                    </p>
+                </a>
+                <a href="?status=accepted">
+                    <p style="text-align: center; font-size: large; font-weight: 700;">Accepted(
+                        <?php echo $count_accepted ?>)
+                    </p>
+                </a>
+                <a href="?status=completed">
+                    <p style="text-align: center; font-size: large; font-weight: 700;">Completed(
+                        <?php echo $count_completed ?>)
+                    </p>
+                </a>
+                <a href="?status=return_refund">
+                    <p style="text-align: center; font-size: large; font-weight: 700;">Return/Refund(
+                        <?php echo $count_returned_refunded ?>)
+                    </p>
+                </a>
+            <?php } ?>
         </div>
 
+        <!-- List of orders, filters based on order status -->
         <table>
             <thead>
                 <tr>
