@@ -218,7 +218,8 @@ $user_type = $_COOKIE['type'] ?? '';
 
 
     <!-- #My Orders start-->
-    <div class="fashion_section" style="display: flex; justify-content: center; align-items: center;">
+    <div class="fashion_section"
+        style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
         <!-- Links to filter orders based on status -->
         <div style="display: flex; align-items: center; justify-content: center; columns: 100px 3;">
             <?php
@@ -267,9 +268,17 @@ $user_type = $_COOKIE['type'] ?? '';
         <table>
             <thead>
                 <tr>
-
+                    <th style="padding-left: 120px; padding-right: 120px; padding-bottom: 25px;">Image</th>
+                    <th style="padding-left: 120px; padding-right: 120px; padding-bottom: 25px;">Description</th>
+                    <th style="padding-left: 120px; padding-right: 120px; padding-bottom: 25px;">Name</th>
+                    <th style="padding-left: 120px; padding-right: 120px; padding-bottom: 25px;">Quantity</th>
+                    <th style="padding-left: 120px; padding-right: 120px; padding-bottom: 25px;">Price</th>
+                    <th style="padding-left: 120px; padding-right: 120px; padding-bottom: 25px;">Actions</th>
                 </tr>
             </thead>
+            <tbody>
+                <!-- TODO: add functionality to show orders from customers -->
+            </tbody>
         </table>
     </div>
     <!-- #My Orders end-->
