@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="css/table-style.css">
 
 <?php
+// MySQLi snippet
+include 'head.php';
+
 // Get the current year and month
 $year = date('Y');
 $month = date('m');
@@ -34,6 +37,22 @@ for ($i = 0; $i < $first_day_index; $i++) {
     echo "<td></td>";
 }
 
+/**
+ * Gets days of the month and total amount of orders made during that day
+ */
+$order_per_day_statement = "SELECT DATE_FORMAT(date, '%e') AS day_of_month, COUNT(*) AS total_orders FROM purchases WHERE DATE_FORMAT(date, '%m')=$month GROUP BY day_of_month";
+$orders_per_day = mysqli_fetch_all(mysqli_query($lazada, $order_per_day_statement), MYSQLI_ASSOC);
+/**
+ * Stores day and order count for the day in an associative array
+ * the day serves as the key/index, and the order count is its value
+ */
+$day_and_orders = [];
+foreach ($orders_per_day as $key => $order_count) {
+    $day_of_month = $order_count['day_of_month'];
+    $count = $order_count['total_orders'];
+    $day_and_orders[$day_of_month] = $count;
+}
+
 // Print the cells for the days of the month
 for ($day = 1; $day <= $num_days; $day++) {
     // Start a new row at the beginning of each week
@@ -41,9 +60,46 @@ for ($day = 1; $day <= $num_days; $day++) {
         echo "</tr><tr>";
     }
 
+    // ! To remove, obselete
+    // ? Keep as backup for rollback
     // Print the cell for the current day
-    echo "<td align=center>$day</td>";
+    // echo "<td align=center>$day</td>";
+
+    /**
+     * if there are no orders for the day, it just prints out the day of the month
+     * if there are orders for the day, day of the month is printed alongside total number of orders for that day
+     */
+    $day_cell = <<<HTML
+    <td align=center>
+        $day
+    </td>
+    HTML;
+
+    if (isset($day_and_orders[$day])) {
+        if ($day_and_orders[$day] > 0) {
+            $day_cell = <<<HTML
+            <td align=center>
+                $day ($day_and_orders[$day])
+            </td>
+            HTML;
+        }
+    }
+
+    echo $day_cell;
 }
+
+// ! To remove, obselete
+// ? Keep as backup for rollback
+// Print the cells for the days of the month
+// for ($day = 1; $day <= $num_days; $day++) {
+//     // Start a new row at the beginning of each week
+//     if ($day > 1 && ($day - 1 + $first_day_index) % 7 == 0) {
+//         echo "</tr><tr>";
+//     }
+
+//     // Print the cell for the current day
+//     echo "<td align=center>$day</td>";
+// }
 
 // End the last row and the table
 echo "</tr></table>";
