@@ -268,6 +268,7 @@ $user_type = $_COOKIE['type'] ?? '';
             </thead>
             <tbody>
                 <?php
+                $order_status = $_REQUEST['status'] ?? '';
                 if ($order_status === 'accepted') {
                     $orders_query_statement = "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE user_id=$user_id AND status='accepted'";
                 } elseif ($order_status === 'completed') {
