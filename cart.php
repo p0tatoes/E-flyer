@@ -19,6 +19,9 @@ foreach ($product_list as $key => $product) {
     $product_description = $product[3];
     $product_image = $product[5];
     $product_quantity = $product[6];
+    // product_price has two parts, lastprice and ourprice(the difference between the
+    // two is unknown to me, update comments if needed.)
+    // in case ourprice is missing, use price of lastprice instead
     $product_price = $product[8] > 0 ? $product[8] : $product[7];
     if ($carted_prod == $product_id) {
         /**
@@ -40,6 +43,7 @@ foreach ($product_list as $key => $product) {
         if ($in_cart === false) {
             $products_cart[] = [$product_id, $product_category, $product_name, $product_description, $product_image, $product_quantity, $product_price, 1];
         } else {
+        // [7] here is the $carted_quantity index of the array, $products_cart
             $carted_quantity = $products_cart[$cart_id][7];
             $products_cart[$cart_id] = [$product_id, $product_category, $product_name, $product_description, $product_image, $product_quantity, $product_price, $carted_quantity + 1];
         }
