@@ -84,8 +84,9 @@ if (isset($purchase_products) && isset($user_id)) {
         foreach ($products_cart as $key => $cart_product) {
             $cart_id = $cart_product[0];
             $cart_quantity = $cart_product[7];
+            $total_price = $cart_quantity * $cart_product[6];
             if ($product_id == $cart_id) {
-                $purchase_query = "INSERT INTO purchases VALUES($user_id, $product_id, $cart_quantity, NOW(), 'pending')";
+                $purchase_query = "INSERT INTO purchases VALUES($user_id, $product_id, $cart_quantity, $total_price ,NOW(), 'pending')";
                 $purchase_update = mysqli_query($lazada, $purchase_query);
                 $update_products_query = "UPDATE products SET quantity=quantity-$cart_quantity WHERE id=$product_id";
                 $update_products = mysqli_query($lazada, $update_products_query);
@@ -93,5 +94,3 @@ if (isset($purchase_products) && isset($user_id)) {
         }
     }
 }
-
-?>
