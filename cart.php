@@ -75,6 +75,9 @@ if ($updated_prod > 0) {
     }
 }
 
+/**
+ * place order
+ */
 $purchase_products = $_REQUEST["cart_product"] ?? null;
 $user_id = $_COOKIE['user_id'] ?? null;
 if (isset($purchase_products) && isset($user_id)) {
@@ -90,6 +93,8 @@ if (isset($purchase_products) && isset($user_id)) {
                 $purchase_update = mysqli_query($lazada, $purchase_query);
                 $update_products_query = "UPDATE products SET quantity=quantity-$cart_quantity WHERE id=$product_id";
                 $update_products = mysqli_query($lazada, $update_products_query);
+                unset($products_cart[$key]);
+                setcookie("products_cart", serialize($products_cart), time() + 86400, '/');
             }
         }
     }
