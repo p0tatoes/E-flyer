@@ -12,6 +12,7 @@ $carted_prod = $_REQUEST['prod_id'] ?? null;
 $product_query = "SELECT * FROM products";
 $product_search = mysqli_query($lazada, $product_query);
 $product_list = mysqli_fetch_all($product_search);
+// loops through all the products in database
 foreach ($product_list as $key => $product) {
     $product_id = $product[0];
     $product_category = $product[1];
@@ -26,8 +27,10 @@ foreach ($product_list as $key => $product) {
     if ($carted_prod == $product_id) {
         /**
          * Checks if product id is in products_cart and gets the key for the array containing said product
+           loops through the products in the cart stored in the cookies
          */
         $in_cart = false;
+        
         foreach ($products_cart as $key2 => $product2) {
             if ($product_id == $product2[0]) {
                 $in_cart = true;
