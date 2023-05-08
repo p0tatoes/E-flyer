@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Displays the body of the website, which includes the cart, products, and admin dashboard views
+ */
+
 // Cart functionality
 include 'cart.php';
 include 'head.php';

@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Shows the order management view for admin account/s and handles some of its functionalities as well
+ */
+
 include 'head.php';
 $user_type = $_COOKIE['type'] ?? '';
 ?>

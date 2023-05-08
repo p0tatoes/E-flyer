@@ -1,3 +1,7 @@
+<!-- 
+    Provides the calendar used for the admin dashboard, provided by instructor
+ -->
+
 <link rel="stylesheet" href="css/table-style.css">
 
 <?php

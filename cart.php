@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Handles the adding, removing, and updating cart items functionality. Also handles the placing orders functionality 
+ */
+
 include 'head.php';
 
 $products_cart = isset($_COOKIE['products_cart']) ? unserialize($_COOKIE['products_cart']) : [];

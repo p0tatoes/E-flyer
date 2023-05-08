@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Index page. Combines all the views from various files into one to make a cohesive, e-commerce website
+ */
+
 ob_start();
 $user_type = $_COOKIE['type'] ?? '';
 ?>
@@ -34,16 +39,13 @@ $user_type = $_COOKIE['type'] ?? '';
    <!-- fonts -->
    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
    <!-- font awesome -->
-   <link rel="stylesheet" type="text/css"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
    <!--  -->
    <!-- owl stylesheets -->
-   <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext"
-      rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
    <link rel="stylesheet" href="css/owl.carousel.min.css">
    <link rel="stylesoeet" href="css/owl.theme.default.min.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
-      media="screen">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
 </head>
 
 <body>
@@ -56,12 +58,12 @@ $user_type = $_COOKIE['type'] ?? '';
                <div class="col-sm-12">
                   <div class="custom_menu">
                      <?php
-                     if (!isset($_COOKIE['email'])): ?>
+                     if (!isset($_COOKIE['email'])) : ?>
                         <ul>
                            <li><a href="./index.php?action=register&#register">Register</a></li>
                            <li><a href="./index.php?action=login&#login">Log in</a></li>
                         </ul>
-                     <?php else: ?>
+                     <?php else : ?>
                         <ul>
                            <li>
                               Welcome,
@@ -108,11 +110,9 @@ $user_type = $_COOKIE['type'] ?? '';
                <!-- ? remove probably -->
                <!-- <a href="./index.php"><span class="toggle_icon"><img src="images/toggle-icon.png"></span></a> -->
 
-               <a href="./index.php"><span class="toggle_icon"><i class="fa fa-home" aria-hidden="true"
-                        style="transform: scale(3.5);"></i></span></a>
+               <a href="./index.php"><span class="toggle_icon"><i class="fa fa-home" aria-hidden="true" style="transform: scale(3.5);"></i></span></a>
                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                      <a class="dropdown-item" href="#">Action</a>
@@ -124,8 +124,7 @@ $user_type = $_COOKIE['type'] ?? '';
                   <div class="input-group">
                      <input type="text" class="form-control" placeholder="Search this blog">
                      <div class="input-group-append">
-                        <button class="btn btn-secondary" type="button"
-                           style="background-color: #f26522; border-color:#f26522 ">
+                        <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
                            <i class="fa fa-search"></i>
                         </button>
                      </div>
@@ -134,8 +133,7 @@ $user_type = $_COOKIE['type'] ?? '';
                <div class="header_box">
                   <div class="lang_box ">
                      <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                        <img src="images/flag-uk.png" alt="flag" class="mr-2 " title="United Kingdom"> English <i
-                           class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+                        <img src="images/flag-uk.png" alt="flag" class="mr-2 " title="United Kingdom"> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
                      </a>
                      <div class="dropdown-menu ">
                         <a href="#" class="dropdown-item">
@@ -145,8 +143,8 @@ $user_type = $_COOKIE['type'] ?? '';
                      </div>
                   </div>
                   <?php
-                  if ($user_type == 'customer'):
-                     ?>
+                  if ($user_type == 'customer') :
+                  ?>
                      <div class="login_menu">
                         <ul>
                            <li><a href="index.php?cart=true">
@@ -168,8 +166,7 @@ $user_type = $_COOKIE['type'] ?? '';
                <div class="carousel-inner">
                   <div class="carousel-item active">
                      <div class="row">
-                        <div class="col-sm-12"
-                           style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                        <div class="col-sm-12" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                            <?php
                            if ($user_type == 'admin') {
                               include 'calendar.php';

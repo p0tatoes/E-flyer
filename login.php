@@ -1,11 +1,16 @@
 <?php
+
+/**
+ * Handles the logging in functionality of the website
+ */
+
 include 'head.php';
 
-/* 
-Login Functionality
-If email and password are correct, the user will be redirected to the home page. But instead of register and login links, there is only "welcome"
-If login credentials are not correct, an error alert will popup
-*/
+/**
+ * If email and password are correct, the user will be redirected to the home page.
+ * But instead of register and login links, there is only "welcome"
+ * If login credentials are not correct, an error alert will popup
+ */
 $logging_in = $_REQUEST['logging_in'] ?? false;
 $action = $_REQUEST['action'] ?? '';
 
@@ -25,6 +30,9 @@ if ($logging_in) {
     }
 }
 
+/**
+ * Displays the login form
+ */
 if ($action == 'login') {
     print('<p id="login">Log in</p>');
     print('<form action=index.php?logging_in=true method=post>');
@@ -33,4 +41,3 @@ if ($action == 'login') {
     print('<input type=submit value=submit name=submit>');
     print('</form>');
 }
-?>

@@ -1,11 +1,15 @@
 <?php
+
+/**
+ * Handles the registering functionality of the website
+ */
+
 include 'head.php';
 
-/* 
-Register Functionality
-Registers username, email, password, contact, address, ip, registration date, and user type into the database, if all input fields in the form are filled.
-If not, an alert popup will show up
-*/
+/**
+ * Registers username, email, password, contact, address, ip, registration date, and user type into the database, if all input fields in the form are filled.
+ * If not, an alert popup will show up
+ */
 $action = $_REQUEST['action'] ?? '';
 $register_name = $_REQUEST['name'] ?? '';
 $register_email = $_REQUEST['email'] ?? '';
@@ -21,9 +25,9 @@ if ($register_name != "" && $register_email != "" && $register_password != "" &&
         $query_all = "select * from user";
         $all_results = mysqli_query($lazada, $query_all) or die(mysqli_error($lazada));
         $total_registered_accounts = mysqli_num_rows($all_results);
-        if ($total_registered_accounts == 0):
+        if ($total_registered_accounts == 0) :
             $register_usertype = 'admin';
-        else:
+        else :
             $register_usertype = 'customer';
         endif;
         $register_query = "insert into user(email, passwd, contact, name, address, usertype, user_date, user_ip) values('" . $_REQUEST['email'] . "', '" . $_REQUEST['password'] . "', '" . $_REQUEST['contact'] . "', '" . $_REQUEST['name'] . "' ,'" . $_REQUEST['address'] . "', '" . $register_usertype . "', '" . date("Y-m-d h:i:s") . "', '" . $_SERVER['REMOTE_ADDR'] . "')";
@@ -36,6 +40,9 @@ if ($register_name != "" && $register_email != "" && $register_password != "" &&
     }
 }
 
+/**
+ * Displays the register form
+ */
 if ($action == 'register') {
     print('<p id="register">Register</p>');
     print('<form action=index.php method=post>');
@@ -47,4 +54,3 @@ if ($action == 'register') {
     print('<input type=submit value=submit name=submit>');
     print('</form>');
 }
-?>

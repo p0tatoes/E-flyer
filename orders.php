@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Shows a list of the customer's orders, categorized based on the order's status. Code responsible for its functionalities are also found here.
+ */
+
 include 'head.php';
 $user_type = $_COOKIE['type'] ?? '';
 ?>
