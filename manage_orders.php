@@ -218,11 +218,10 @@ $user_type = $_COOKIE['type'] ?? '';
                 /**
                  * Query statements for count of pending, accepted, completed, and returned/refunded orders
                  */
-                $user_id = $_COOKIE['user_id'];
-                $pending_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='pending' AND user_id=$user_id";
-                $accepted_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='accepted' AND user_id=$user_id";
-                $completed_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='completed' AND user_id=$user_id";
-                $returned_refunded_query = "SELECT COUNT(*) AS count FROM purchases WHERE (status='returned' OR status='refunded') AND user_id=$user_id";
+                $pending_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='pending' AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
+                $accepted_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='accepted' AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
+                $completed_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='completed' AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
+                $returned_refunded_query = "SELECT COUNT(*) AS count FROM purchases WHERE (status='returned' OR status='refunded') AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
 
                 /**
                  * contains the count of pending, accepted, completed, and returned/refunded orders
@@ -270,16 +269,16 @@ $user_type = $_COOKIE['type'] ?? '';
                 <?php
                 $order_status = $_REQUEST['status'] ?? '';
                 if ($order_status === 'accepted') {
-                    $orders_query_statement = "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE user_id=$user_id AND status='accepted'";
+                    $orders_query_statement = "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='accepted' AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
                 } elseif ($order_status === 'completed') {
-                    $orders_query_statement = "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE user_id=$user_id AND status='completed'";
+                    $orders_query_statement = "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='completed' AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
                 } elseif ($order_status === 'return_refund') {
-                    $orders_query_statement =  "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE user_id=$user_id AND (status='returned' OR status='refunded')";
+                    $orders_query_statement =  "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE (status='returned' OR status='refunded') AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
                 } else {
                     /**
                      * pending orders is the default status shown to the user
                      */
-                    $orders_query_statement =  "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE user_id=$user_id AND status='pending'";
+                    $orders_query_statement =  "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='pending' AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
                 }
                 /**
                  * contains list of customer's orders based on selected status (see conditionals above)
