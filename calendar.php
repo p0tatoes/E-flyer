@@ -61,11 +61,6 @@ for ($day = 1; $day <= $num_days; $day++) {
         echo '</tr><tr style="background-color: white;">';
     }
 
-    // ! To remove, obselete
-    // ? Keep as backup for rollback
-    // Print the cell for the current day
-    // echo "<td align=center>$day</td>";
-
     /**
      * if there are no orders for the day, it just prints out the day of the month
      * if there are orders for the day, day of the month is printed alongside total number of orders for that day
@@ -88,19 +83,6 @@ for ($day = 1; $day <= $num_days; $day++) {
 
     echo $day_cell;
 }
-
-// ! To remove, obselete
-// ? Keep as backup for rollback
-// Print the cells for the days of the month
-// for ($day = 1; $day <= $num_days; $day++) {
-//     // Start a new row at the beginning of each week
-//     if ($day > 1 && ($day - 1 + $first_day_index) % 7 == 0) {
-//         echo "</tr><tr>";
-//     }
-
-//     // Print the cell for the current day
-//     echo "<td align=center>$day</td>";
-// }
 
 // End the last row and the table
 echo "</tr></table>";
