@@ -82,7 +82,7 @@ $purchase_products = $_REQUEST["cart_product"] ?? null;
 $user_id = $_COOKIE['user_id'] ?? null;
 if (isset($purchase_products) && isset($user_id)) {
     foreach ($purchase_products as $key => $purchase_product) {
-        $product_id = $purchase_product[0];
+        $product_id = $purchase_product;
 
         foreach ($products_cart as $key => $cart_product) {
             $cart_id = $cart_product[0];
