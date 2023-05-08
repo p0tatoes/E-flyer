@@ -30,7 +30,7 @@ echo "<th>Thu</th><th>Fri</th><th>Sat</th>";
 echo "</tr>";
 
 // Start a new row for the first week
-echo "<tr>";
+echo '<tr style="background-color: white;">';
 
 // Print blank cells for the days before the first day of the month
 for ($i = 0; $i < $first_day_index; $i++) {
@@ -57,7 +57,7 @@ foreach ($orders_per_day as $key => $order_count) {
 for ($day = 1; $day <= $num_days; $day++) {
     // Start a new row at the beginning of each week
     if ($day > 1 && ($day - 1 + $first_day_index) % 7 == 0) {
-        echo "</tr><tr>";
+        echo '</tr><tr style="background-color: white;">';
     }
 
     // ! To remove, obselete
