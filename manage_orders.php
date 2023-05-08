@@ -214,6 +214,10 @@ $user_type = $_COOKIE['type'] ?? '';
         <!-- Links to filter orders based on status -->
         <div style="display: flex; align-items: center; justify-content: center; columns: 100px 3;">
             <?php
+            $header_status = $_REQUEST['status'] ?? '';
+            $order_month = $_REQUEST['month'] ?? null;
+            $order_day = $_REQUEST['day'] ?? null;
+
             if (isset($_COOKIE['user_id'])) {
                 /**
                  * Query statements for count of pending, accepted, completed, and returned/refunded orders
@@ -230,28 +234,34 @@ $user_type = $_COOKIE['type'] ?? '';
                 $count_accepted = mysqli_fetch_assoc(mysqli_query($lazada, $accepted_query))['count'];
                 $count_completed = mysqli_fetch_assoc(mysqli_query($lazada, $completed_query))['count'];
                 $count_returned_refunded = mysqli_fetch_assoc(mysqli_query($lazada, $returned_refunded_query))['count'];
-            ?>
-                <a href="?status=pending">
+
+                /**
+                 * Headers/Links to show orders based on their status
+                 */
+                $status_headers = <<<HTML
+                <a href="?status=pending&month=$order_month&day=$order_day">
                     <p style="text-align: center; font-size: large; font-weight: 700;">
-                        Pending(<?php echo $count_pending ?>)
+                        Pending($count_pending)
                     </p>
                 </a>
-                <a href="?status=accepted">
+                <a href="?status=accepted&month=$order_month&day=$order_day">
                     <p style="text-align: center; font-size: large; font-weight: 700;">
-                        Accepted(<?php echo $count_accepted ?>)
+                        Accepted($count_accepted)
                     </p>
                 </a>
-                <a href="?status=completed">
+                <a href="?status=completed&month=$order_month&day=$order_day">
                     <p style="text-align: center; font-size: large; font-weight: 700;">
-                        Completed(<?php echo $count_completed ?>)
+                        Completed($count_completed)
                     </p>
                 </a>
-                <a href="?status=return_refund">
+                <a href="?status=return_refund&month=$order_month&day=$order_day">
                     <p style="text-align: center; font-size: large; font-weight: 700;">
-                        Return/Refund(<?php echo $count_returned_refunded ?>)
+                        Return/Refund($count_returned_refunded)
                     </p>
                 </a>
-            <?php } ?>
+                HTML;
+                echo $status_headers;
+            } ?>
         </div>
 
         <table style="text-align: center;">
@@ -262,26 +272,22 @@ $user_type = $_COOKIE['type'] ?? '';
                     <th style="padding-left: 120px; padding-right: 120px; padding-bottom: 25px;">Quantity</th>
                     <th style="padding-left: 120px; padding-right: 120px; padding-bottom: 25px;">Price</th>
                     <th style="padding-left: 120px; padding-right: 120px; padding-bottom: 25px;">Order Date</th>
-                    <th style="padding-left: 120px; padding-right: 120px; padding-bottom: 25px;">Status</th>
+                    <th style="padding-left: 120px; padding-right: 120px; padding-bottom: 25px;">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $order_status = $_REQUEST['status'] ?? '';
-                $order_month = $_REQUEST['month'] ?? null;
-                $order_day = $_REQUEST['day'] ?? null;
-
                 $orders_query_statement =  "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='pending' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
 
-                if ($order_status === 'accepted') {
+                if ($header_status === 'accepted') {
                     $orders_query_statement = "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='accepted' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
                 }
 
-                if ($order_status === 'completed') {
+                if ($header_status === 'completed') {
                     $orders_query_statement = "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='completed' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
                 }
 
-                if ($order_status === 'return_refund') {
+                if ($header_status === 'return_refund') {
                     $orders_query_statement =  "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE (status='returned' OR status='refunded') AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
                 }
 
@@ -302,6 +308,17 @@ $user_type = $_COOKIE['type'] ?? '';
                     $order_date = $order['date'];
                     $order_status = $order['status'];
 
+                    /**
+                     * Is used to select a default option in the "select" element based on selected status category
+                     */
+                    $select_pending = $header_status === 'pending' ? 'selected' : '';
+                    $select_accepted = $header_status === 'accepted' ? 'selected' : '';
+                    $select_completed = $header_status === 'completed' ? 'selected' : '';
+                    $select_return_refund = $header_status === 'return_refund' ? 'selected' : '';
+
+                    /**
+                     * Table row for an ordered product
+                     */
                     $table_row = <<<HTML
                     <tr>
                         <td>
@@ -321,9 +338,10 @@ $user_type = $_COOKIE['type'] ?? '';
                         </td>
                         <td>
                             <select name="order_status" id="order_status">
-                                <option value="pending">Pending</option>
-                                <option value="accepted">Accepted</option>
-                                <option value="completed">Completed</option>
+                                <option value="pending" $select_pending>Pending</option>
+                                <option value="accepted" $select_accepted>Accepted</option>
+                                <option value="completed" $select_completed>Completed</option>
+                                <option value="" style="display: none;" $select_return_refund>Returned/Refunded</option>
                                 <option value="refunded">Refunded</option>
                                 <option value="returned">Returned</option>
                             </select>
