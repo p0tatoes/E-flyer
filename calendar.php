@@ -7,6 +7,7 @@ include 'head.php';
 // Get the current year and month
 $year = date('Y');
 $month = date('m');
+$current_day = date('j');
 
 // Get the number of days in the current month
 $num_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
@@ -79,7 +80,7 @@ for ($day = 1; $day <= $num_days; $day++) {
         if ($day_and_orders[$day] > 0) {
             $day_cell = <<<HTML
             <td align=center>
-                $day ($day_and_orders[$day])
+                <a href="manage_orders.php?month=$month&day=$day">$day ($day_and_orders[$day])</a>
             </td>
             HTML;
         }
