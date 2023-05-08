@@ -222,10 +222,10 @@ $user_type = $_COOKIE['type'] ?? '';
                 /**
                  * Query statements for count of pending, accepted, completed, and returned/refunded orders
                  */
-                $pending_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='pending' AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
-                $accepted_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='accepted' AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
-                $completed_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='completed' AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
-                $returned_refunded_query = "SELECT COUNT(*) AS count FROM purchases WHERE (status='returned' OR status='refunded') AND (DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day)";
+                $pending_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='pending' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%d')=$order_day)";
+                $accepted_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='accepted' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%d')=$order_day)";
+                $completed_query = "SELECT COUNT(*) AS count FROM purchases WHERE status='completed' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%d')=$order_day)";
+                $returned_refunded_query = "SELECT COUNT(*) AS count FROM purchases WHERE (status='returned' OR status='refunded') AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%d')=$order_day)";
 
                 /**
                  * contains the count of pending, accepted, completed, and returned/refunded orders
