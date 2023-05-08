@@ -268,6 +268,8 @@ $user_type = $_COOKIE['type'] ?? '';
             </thead>
             <tbody>
                 <?php
+                $cummulative_price = 0;
+
                 $order_status = $_REQUEST['status'] ?? '';
                 if ($order_status === 'accepted') {
                     $orders_query_statement = "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE user_id=$user_id AND status='accepted'";
@@ -297,6 +299,7 @@ $user_type = $_COOKIE['type'] ?? '';
                     $total_price = $order['price'];
                     $order_date = $order['date'];
                     $order_status = $order['status'];
+                    $cummulative_price += $total_price;
 
                     $table_row = <<<HTML
                     <tr>
@@ -323,6 +326,11 @@ $user_type = $_COOKIE['type'] ?? '';
                     echo $table_row;
                 }
                 ?>
+                <tr>
+                    <td colspan="6" align="center">
+                        <span style="font-size: large;"><strong>Total:</strong> <?php echo $cummulative_price ?></span>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
