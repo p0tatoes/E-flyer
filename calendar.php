@@ -41,7 +41,7 @@ for ($i = 0; $i < $first_day_index; $i++) {
 /**
  * Gets days of the month and total amount of orders made during that day
  */
-$order_per_day_statement = "SELECT DATE_FORMAT(date, '%e') AS day_of_month, COUNT(*) AS total_orders FROM purchases WHERE DATE_FORMAT(date, '%m')=$month AND DATE_FORMAT(date, '%d')=$current_day GROUP BY day_of_month";
+$order_per_day_statement = "SELECT DATE_FORMAT(date, '%e') AS day_of_month, COUNT(*) AS total_orders FROM purchases WHERE DATE_FORMAT(date, '%m')=$month GROUP BY day_of_month";
 $orders_per_day = mysqli_fetch_all(mysqli_query($lazada, $order_per_day_statement), MYSQLI_ASSOC);
 /**
  * Stores day and order count for the day in an associative array
