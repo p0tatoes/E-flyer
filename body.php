@@ -5,10 +5,9 @@ include 'head.php';
 
 $user_type = $_COOKIE['type'] ?? '';
 
-if ($user_type == 'admin'): ?>
-    <figure id="dashboard" style="display: flex; justify-content: center; align-items: center;"><img
-            src="./images/temp-dashboard.gif" alt="temporary dashboard"></figure>
-<?php else: ?>
+if ($user_type == 'admin') : ?>
+    <figure id="dashboard" style="display: flex; justify-content: center; align-items: center;"><img src="./images/temp-dashboard.gif" alt="temporary dashboard"></figure>
+<?php else : ?>
     <!-- fashion section start -->
     <?php
     // * Cart page/view
@@ -41,7 +40,7 @@ if ($user_type == 'admin'): ?>
                             $carted_quantity = $in_cart[7];
                             $product_price = $in_cart[6] * $carted_quantity;
                             $total_price += $product_price;
-                            ?>
+                        ?>
                             <tr>
                                 <td style="padding-left: 70px; padding-right: 70px; padding-bottom: 100px;">
                                     <input type="checkbox" name="cart_product[]" value=<?php echo $product_id ?>>
@@ -69,7 +68,7 @@ if ($user_type == 'admin'): ?>
                                             for ($range = 1; $range <= $product_quantity[0]; $range++) {
                                                 if ($range == $carted_quantity) { ?>
                                                     <option value=<?php echo $range ?> selected><?php echo $range ?></option>
-                                                    <?php continue;
+                                                <?php continue;
                                                 } ?>
                                                 <option value=<?php echo $range ?>><?php echo $range ?></option>
                                             <?php } ?>
@@ -95,8 +94,7 @@ if ($user_type == 'admin'): ?>
                         </tr>
                     </tbody>
                 </table>
-                <input style="width: 100%; padding-top: 10px; padding-bottom: 10px; background-color: yellow;" type="submit"
-                    value="Place orders">
+                <input style="width: 100%; padding-top: 10px; padding-bottom: 10px; background-color: yellow;" type="submit" value="Place orders">
             </form>
         </div>
     <?php } else { ?>
@@ -147,7 +145,7 @@ if ($user_type == 'admin'): ?>
                                      * Else, display original price
                                      */
                                     $price = $product[8] > 0 ? $product[8] : $product[7];
-                                    ?>
+                                ?>
                                     <div class="col-lg-4 col-sm-4">
                                         <div class="box_main">
                                             <h4 class="shirt_text">
@@ -168,8 +166,10 @@ if ($user_type == 'admin'): ?>
 
                                             <div class="btn_main">
                                                 <div class="buy_bt">
-                                                    <?php if ($quantity > 0) { ?>
-                                                        <a href=<?php echo "index.php?prod_id=$id" ?>>Buy Now</a> <!-- "Buy now" Button -->
+                                                    <?php if ($quantity > 0) {
+                                                        if (isset($_COOKIE['email']) && isset($_COOKIE['type']) && isset($_COOKIE['user_id'])) { ?>
+                                                            <a href=<?php echo "index.php?prod_id=$id" ?>>Buy Now</a> <!-- "Buy now" Button -->
+                                                        <?php } ?>
                                                     <?php } else { ?>
                                                         <p>Out of stock :(</p>
                                                     <?php } ?>
