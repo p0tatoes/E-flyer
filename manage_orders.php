@@ -310,6 +310,7 @@ $user_type = $_COOKIE['type'] ?? '';
 
                     /**
                      * Is used to select a default option in the "select" element based on selected status category
+                     * Cannot use ternary operators inside HEREDOC, truly saddening
                      */
                     $select_pending = $header_status === 'pending' ? 'selected' : '';
                     $select_accepted = $header_status === 'accepted' ? 'selected' : '';
