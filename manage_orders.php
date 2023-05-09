@@ -6,6 +6,17 @@
 
 include 'head.php';
 $user_type = $_COOKIE['type'] ?? '';
+$user_id = $_COOKIE['user_id'] ?? null;
+
+$customer_id = $_REQUEST['customer_id'] ?? null;
+$updated_status = $_REQUEST['order_status'] ?? null;
+$updated_order_id = $_REQUEST['product_id'] ?? null;
+$updated_order_date = $_REQUEST['order_date'] ?? null;
+
+if (isset($updated_status) && isset($updated_order_id) && isset($updated_order_date)) {
+    $update_status_statement = "UPDATE purchases SET status='$updated_status' WHERE user_id=$customer_id AND product_id=$updated_order_id AND date='$updated_order_date'";
+    mysqli_query($lazada, $update_status_statement);
+}
 ?>
 
 <!DOCTYPE html>
@@ -282,18 +293,18 @@ $user_type = $_COOKIE['type'] ?? '';
             </thead>
             <tbody>
                 <?php
-                $orders_query_statement =  "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='pending' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
+                $orders_query_statement =  "SELECT user_id, prod.id AS product_id, prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='pending' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
 
                 if ($header_status === 'accepted') {
-                    $orders_query_statement = "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='accepted' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
+                    $orders_query_statement = "SELECT user_id, prod.id AS product_id, prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='accepted' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
                 }
 
                 if ($header_status === 'completed') {
-                    $orders_query_statement = "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='completed' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
+                    $orders_query_statement = "SELECT user_id, prod.id AS product_id, prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE status='completed' AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
                 }
 
                 if ($header_status === 'return_refund') {
-                    $orders_query_statement =  "SELECT prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE (status='returned' OR status='refunded') AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
+                    $orders_query_statement =  "SELECT user_id, prod.id AS product_id, prod.image_link AS image_link, prod.name AS name, prod.category AS category, pur.quantity AS quantity, pur.total_price AS price, date, status FROM purchases pur INNER JOIN products prod ON pur.product_id=prod.id WHERE (status='returned' OR status='refunded') AND (DATE_FORMAT(date, '%m')=$order_month AND DATE_FORMAT(date, '%e')=$order_day)";
                 }
 
                 /**
@@ -305,6 +316,8 @@ $user_type = $_COOKIE['type'] ?? '';
                  * List of ordered products by the customers, categorized by order's status
                  */
                 foreach ($order_list as $key => $order) {
+                    $customer_id = $order['user_id'];
+                    $order_id = $order['product_id'];
                     $order_image = $order['image_link'];
                     $order_name = $order['name'];
                     $order_category = $order['category'];
@@ -343,14 +356,19 @@ $user_type = $_COOKIE['type'] ?? '';
                             $order_date
                         </td>
                         <td>
-                            <select name="order_status" id="order_status">
-                                <option value="pending" $select_pending>Pending</option>
-                                <option value="accepted" $select_accepted>Accepted</option>
-                                <option value="completed" $select_completed>Completed</option>
-                                <option value="" style="display: none;" $select_return_refund>Returned/Refunded</option>
-                                <option value="refunded">Refunded</option>
-                                <option value="returned">Returned</option>
-                            </select>
+                            <form action="?status=$header_status&month=$order_month&day=$order_day" method="post">
+                                <select name="order_status" id="order_status" onchange="this.form.submit()">
+                                    <option value="pending" $select_pending>Pending</option>
+                                    <option value="accepted" $select_accepted>Accepted</option>
+                                    <option value="completed" $select_completed>Completed</option>
+                                    <option value="" style="display: none;" $select_return_refund>Returned/Refunded</option>
+                                    <option value="refunded">Refunded</option>
+                                    <option value="returned">Returned</option>
+                                </select>
+                                <input type="hidden" name="customer_id" value="$customer_id">
+                                <input type="hidden" name="product_id" value="$order_id">
+                                <input type="hidden" name="order_date" value="$order_date">
+                            </form>
                         </td>
                     </tr>
                     HTML;
