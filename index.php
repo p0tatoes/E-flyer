@@ -74,6 +74,10 @@ $user_type = $_COOKIE['type'] ?? '';
                               <li>
                                  <a href="orders.php">My Orders</a>
                               </li>
+                           <?php } elseif ($_COOKIE['type'] == 'admin') { ?>
+                              <li>
+                                 <a href="manage_products.php">Manage Products</a>
+                              </li>
                            <?php } ?>
                            <li><a href="logout.php">Logout</a></li>
                         </ul>
