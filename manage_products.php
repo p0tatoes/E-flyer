@@ -25,13 +25,19 @@ if ($admin_action === "edit_product" && isset($_REQUEST["id"])) {
     $new_orig = $_REQUEST['original_price'] ?? null;
     $new_promo = $_REQUEST['promo_price'] ?? null;
 
-    if (isset($upload_image) && isset($new_category) && isset($new_name) && isset($new_description) && isset($new_quantity) && isset($new_orig) && isset($new_promo)) {
-        /**
-         * Uploads image to project "images" directory
-         */
-        move_uploaded_file($_FILES['image']['tmp_name'], $new_image);
+    if (isset($new_category) && isset($new_name) && isset($new_description) && isset($new_quantity) && isset($new_orig) && isset($new_promo)) {
 
-        $edit_query = "UPDATE products SET category='$new_category', name='$new_name', description='$new_description', image_link='$new_image', quantity=$new_quantity, orig_price=$new_orig, promo_price=$new_promo WHERE id=$edit_id";
+        $edit_query = "UPDATE products SET category='$new_category', name='$new_name', description='$new_description', quantity=$new_quantity, orig_price=$new_orig, promo_price=$new_promo WHERE id=$edit_id";
+
+        if (!empty($upload_image)) {
+            $edit_query = "UPDATE products SET category='$new_category', name='$new_name', description='$new_description', image_link='$new_image', quantity=$new_quantity, orig_price=$new_orig, promo_price=$new_promo WHERE id=$edit_id";
+
+            /**
+             * Uploads image to project "images" directory
+             */
+            move_uploaded_file($_FILES['image']['tmp_name'], $new_image);
+        }
+
         mysqli_query($lazada, $edit_query);
     }
 }
@@ -78,18 +84,17 @@ if ($admin_action === "edit_product" && isset($_REQUEST["id"])) {
 <body>
     <!-- show modal if editing a product. send request containing id to be deleted if deleting a product -->
     <?php
-    if (isset($product_action)) {
-        if ($product_action === "edit") {
-            $edited_product = mysqli_fetch_assoc(mysqli_query($lazada, "SELECT * FROM products where id=$product_id"));
-            $edited_category = $edited_product['category'];
-            $edited_name = $edited_product['name'];
-            $edited_description = $edited_product['description'];
-            $edited_image = $edited_product['image_link'];
-            $edited_quantity = $edited_product['quantity'];
-            $edited_orig = $edited_product['orig_price'];
-            $edited_promo = $edited_product['promo_price'];
+    if ($product_action === "edit") {
+        $edited_product = mysqli_fetch_assoc(mysqli_query($lazada, "SELECT * FROM products where id=$product_id"));
+        $edited_category = $edited_product['category'];
+        $edited_name = $edited_product['name'];
+        $edited_description = $edited_product['description'];
+        $edited_image = $edited_product['image_link'];
+        $edited_quantity = $edited_product['quantity'];
+        $edited_orig = $edited_product['orig_price'];
+        $edited_promo = $edited_product['promo_price'];
 
-            $dialog_modal = <<<HTML
+        $dialog_modal = <<<HTML
             <dialog id="modal_form">
                 <form action="manage_products.php" method="post" style="display: flex; flex-direction: column; justify-content: center; align-items: center;" enctype="multipart/form-data">
                     <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
@@ -120,7 +125,7 @@ if ($admin_action === "edit_product" && isset($_REQUEST["id"])) {
                             <input type="number" name="promo_price" value="$edited_promo" required>
                         </label>
                     </div>
-                    <input type="hidden" name="id" value="<? echo $product_id ?>">
+                    <input type="hidden" name="id" value="$product_id">
                     <input type="hidden" name="admin_action" value="edit_product">
                     <button type="submit">UPDATE</button>
                 </form>
@@ -137,18 +142,21 @@ if ($admin_action === "edit_product" && isset($_REQUEST["id"])) {
                 })
             </script>
             HTML;
-            echo $dialog_modal;
-        } elseif ($product_action === "delete") {
-            $script = <<<HTML
+        echo $dialog_modal;
+    } elseif ($product_action === "delete") {
+        $script = <<<HTML
                 <script>
-                    var delete_confirm = confirm("Delete Product # $product_id ?")
+                    var delete_confirm = confirm("Delete Product #$product_id?")
                     if (delete_confirm) {
                         window.location.href = "?admin_action=delete_product&id=$product_id";
                     }
                 </script>
             HTML;
-            echo $script;
-        }
+        echo $script;
+    } elseif ($product_action === "insert") {
+        $insert_category = $_REQUEST['product_category'];
+        $insert_query = "INSERT INTO products(category, name, description, page_link, image_link, quantity, orig_price, promo_price) VALUES('$insert_category', 'New Product', 'Replace placeholder for new product', 'www.google.com', 'images/new_product.png', 0, 0, 0)";
+        mysqli_query($lazada, $insert_query);
     }
     ?>
 
@@ -339,7 +347,7 @@ if ($admin_action === "edit_product" && isset($_REQUEST["id"])) {
         <div class="fashion_section">
             <div class="carousel-item active">
                 <div class="container">
-                    <a href="?prod_cat=<?php echo $product_category ?>">
+                    <a href="?prod_cat=<?php echo $product_category ?>&admin_action=edit_category">
                         <h1 class="fashion_taital">
                             <?php echo strtoupper($product_category) ?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width: 30px; height: 30px;">
                                 <path d="M5.433 13.917l1.262-3.155A4 4 0 017.58 9.42l6.92-6.918a2.121 2.121 0 013 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 01-.65-.65z" />
@@ -397,6 +405,7 @@ if ($admin_action === "edit_product" && isset($_REQUEST["id"])) {
                                                         <option value="delete">delete</option>
                                                     </select>
                                                     <input type="hidden" name="product_id" value="<?php echo $id ?>">
+                                                    <input type="hidden" name="product_category" value="<?php echo $category ?>">
                                                 </form>
                                             </div>
                                             <p>
