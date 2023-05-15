@@ -941,3 +941,14 @@ input.mail_bt::placeholder {
   width: 500px;
   margin-bottom: 50px;
 }
+
+#newcategory_btn {
+  padding: 15px 50px;
+  border-radius: 10px;
+  transition: all ease-in-out 200ms;
+  margin-bottom: 150px;
+}
+
+#newcategory_btn:hover {
+  background-color: goldenrod;
+}

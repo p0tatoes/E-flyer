@@ -11,9 +11,7 @@ if ($admin_action === "delete_product" && isset($_REQUEST["id"])) {
     $delete_id = $_REQUEST['id'] ?? null;
     $delete_query = "DELETE FROM products where id=$delete_id";
     mysqli_query($lazada, $delete_query);
-}
-
-if ($admin_action === "edit_product" && isset($_REQUEST["id"])) {
+} elseif ($admin_action === "edit_product" && isset($_REQUEST["id"])) {
     $edit_id = $_REQUEST["id"] ?? null;
     $upload_image = $_FILES['image']['name'] ?? null;
 
@@ -40,6 +38,45 @@ if ($admin_action === "edit_product" && isset($_REQUEST["id"])) {
 
         mysqli_query($lazada, $edit_query);
     }
+} elseif ($admin_action === "new_category") {
+    $newcategory_stmnt = "INSERT INTO products(category, name, description, page_link, image_link, quantity, orig_price, promo_price) VALUES('New Category', 'New Product', 'Replace placeholder for new product', 'www.google.com', 'images/new_product.png', 0, 0, 0)";
+    mysqli_query($lazada, $newcategory_stmnt);
+} elseif ($admin_action === "edit_category") {
+    $old_category = $_REQUEST['prod_cat'] ?? null;
+
+    $dialog_modal = <<<HTML
+        <dialog id="modal_form">
+            <form action="manage_products.php" method="post" style="display: flex; flex-direction: column; justify-content: center; align-items: center;" enctype="multipart/form-data">
+                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                    <label>
+                        Category
+                        <input type="text" name="new_category" value="$old_category" required>
+                    </label>
+                </div>
+                <input type="hidden" name="old_category" value="$old_category">
+                <input type="hidden" name="admin_action" value="edited_category">
+                <button type="submit">UPDATE</button>
+            </form>
+            <button id="discard_btn">Discard</button>
+        </dialog>
+
+        <script>
+            document.getElementById("modal_form").showModal();
+
+            var discard_btn = document.getElementById("discard_btn");
+
+            discard_btn.addEventListener("click", () => {
+                document.getElementById("modal_form").close();
+            })
+        </script>
+    HTML;
+    echo $dialog_modal;
+} elseif ($admin_action === "edited_category") {
+    $old_category = $_REQUEST['old_category'];
+    $new_category = $_REQUEST['new_category'];
+
+    $editcategory_stmnt = "UPDATE products SET category='$new_category' WHERE category='$old_category'";
+    mysqli_query($lazada, $editcategory_stmnt);
 }
 ?>
 
@@ -422,6 +459,10 @@ if ($admin_action === "edit_product" && isset($_REQUEST["id"])) {
             </div>
         </div>
     <?php } ?>
+    <!-- Add new category button -->
+    <div style="text-align: center;">
+        <a href="?admin_action=new_category"><button id="newcategory_btn">ADD A NEW CATEGORY</button></a>
+    </div>
     <!-- End of database generated content -->
 
     <!-- footer section start -->
