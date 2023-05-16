@@ -136,7 +136,7 @@ if ($admin_action === "delete_product" && isset($_REQUEST["id"])) {
                 <form action="manage_products.php" method="post" style="display: flex; flex-direction: column; justify-content: center; align-items: center;" enctype="multipart/form-data">
                     <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                         <img src="$edited_image" alt="$edited_name">
-                        <input type="file" name="image" id="image" enc>
+                        <input type="file" name="image" id="image" accept="image/*">
                         <label>
                             Category
                             <input type="text" name="product_category" value="$edited_category" required>
