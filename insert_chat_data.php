@@ -24,15 +24,12 @@ if ($user_type === "admin") {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
         $newMessage = mysqli_real_escape_string($lazada, $_POST['message']);
 
-        $query = "INSERT INTO messages (sender, recipient, message, timestamp) VALUES ($user_id, 1, '$newMessage', NOW())";
+        $query = "INSERT INTO messages (sender, receiver, message, timestamp) VALUES ($user_id, 1, '$newMessage', NOW())";
         $insertResult = mysqli_query($lazada, $query);
 
         if (!$insertResult) {
             echo "Error inserting chat message: " . mysqli_error($lazada);
         }
-
-        // Handle the case when the customer's ID is not found
-        mysqli_close($lazada);
     }
 }
 
