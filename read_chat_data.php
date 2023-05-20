@@ -2,8 +2,8 @@
 include "head.php";
 
 // Get the logged-in user's role (admin or customer) - Modify this according to your authentication logic
-$user_type = $_COOKIE['type'];
-$user_id = $_COOKIE['user_id'];
+$user_type = $_COOKIE['type'] ?? null;
+$user_id = $_COOKIE['user_id'] ?? null;
 
 // Retrieve chat messages based on user role and receiver
 if ($user_type === "admin") {

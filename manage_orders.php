@@ -21,7 +21,7 @@ if (isset($updated_status) && isset($updated_order_id) && isset($updated_order_d
     // Sends a message to the customer when order status is changed
     if ($update_status_query) {
         $order_name = mysqli_fetch_assoc(mysqli_query($lazada, "SELECT name FROM products where id=$updated_order_id"))['name'];
-        $update_message_stmnt = "INSERT INTO messages VALUES(1, $customer_id, 'Your order of $order_name made on $updated_order_date is now $updated_status', NOW())";
+        $update_message_stmnt = "INSERT INTO messages VALUES(1, $customer_id, 'order of $order_name by Customer #$customer_id made on $updated_order_date is now $updated_status', NOW())";
         mysqli_query($lazada, $update_message_stmnt);
     }
 }
