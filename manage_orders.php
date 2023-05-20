@@ -14,8 +14,16 @@ $updated_order_id = $_REQUEST['product_id'] ?? null;
 $updated_order_date = $_REQUEST['order_date'] ?? null;
 
 if (isset($updated_status) && isset($updated_order_id) && isset($updated_order_date)) {
+    // Changes the status of the order
     $update_status_statement = "UPDATE purchases SET status='$updated_status' WHERE user_id=$customer_id AND product_id=$updated_order_id AND date='$updated_order_date'";
-    mysqli_query($lazada, $update_status_statement);
+    $update_status_query = mysqli_query($lazada, $update_status_statement);
+
+    // Sends a message to the customer when order status is changed
+    if ($update_status_query) {
+        $order_name = mysqli_fetch_assoc(mysqli_query($lazada, "SELECT name FROM products where id=$updated_order_id"))['name'];
+        $update_message_stmnt = "INSERT INTO messages VALUES(1, $customer_id, 'Your order of $order_name made on $updated_order_date is now $updated_status', NOW())";
+        mysqli_query($lazada, $update_message_stmnt);
+    }
 }
 ?>
 
